@@ -1,162 +1,219 @@
-# Documentação Técnica
+# Desafio ZapSign
 
-## Especificação
+<!-- TOC -->
 
-Transformar os critérios de aceite abaixo em User Stories e executar cada um dos
-User Stories propostos:
-A linguagem no back-end deve ser Python e o framework deve ser Django (qualquer
-versão)
-A linguagem no front-end deve ser Javascript o framework deve ser Angular (qualquer
-versão)
-O design não será avaliado (pode utilizar qualquer bootstrap/material UI da vida)
+- [Desafio ZapSign](#desafio-zapsign)
+- [Especificação](#especificação)
+- [Diagrama de classes](#diagrama-de-classes)
+- [Configuração do ambiente de desenvolvimento](#configuração-do-ambiente-de-desenvolvimento)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+- [Conceitos](#conceitos)
+  - [Django](#django)
+  - [Angular](#angular)
+- [Referências](#referências)
+- [Desenvolvedora](#desenvolvedora)
+- [Licença de uso](#licença-de-uso)
+ 
+<!-- TOC -->
+
+
+# Especificação
+
+Transformar os critérios de aceite abaixo em *User Stories* e executar cada um dos
+*User Stories* propostos:
+
+* A linguagem no *backend* deve ser [Python](https://www.python.org) e o framework deve ser [Django](https://www.djangoproject.com) (qualquer versão);
+* A linguagem no frontend deve ser [Javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript) o framework deve ser [Angular](https://angular.io) (qualquer
+versão);
+* O design não será avaliado (pode utilizar qualquer bootstrap/material UI da vida).
 
 **Uma Company deve ter:**
 
-* nome (string limite de 255 caracteres)
-* data de criação (Datetime)
-* data da última atualização (Datetime)
-* fuso horário (String limite de 50 caracteres)
-* linguagem (opções: pt, es ou en)
-* usuários convidados
-* usuário que criou
-* documentos associados
+* nome (``String`` limite de 255 caracteres);
+* data de criação (``Datetime``);
+* data da última atualização (``Datetime``);
+* fuso horário (``String`` limite de 50 caracteres);
+* linguagem (opções: ``pt``, ``es`` ou ``en``);
+* usuários convidados;
+* usuário que criou;
+* documentos associados.
 
-O nome é obrigatório
-A data de criação é obrigatória
-O valor padrão para fuso horário é: “-03:00”
-O valor padrão para linguagem é “pt”
+O nome é **obrigatório**.<br>
+A data de criação é **obrigatória**.<br>
+O valor padrão para fuso horário é: **"-03:00"**.<br>
+O valor padrão para linguagem é **"pt"**.<br>
 
 **Um Doc deve ter:**
 
-* nome (string limite de 255 caracteres)
-* deletado (boolean)
-* data de criação (Datetime)
-* data da última atualização (Datetime)
-* data limite para assinar (Datetime)
-* assinado (boolean)
-* company associada
-* usuário que criou o documento
+* nome (``String`` limite de 255 caracteres);
+* deletado (``boolean``);
+* data de criação (``Datetime``);
+* data da última atualização (``Datetime``);
+* data limite para assinar (``Datetime``);
+* assinado (``boolean``);
+* company associada;
+* usuário que criou o documento.
 
-O nome é obrigatório
-A campo deletado por padrão é falso
-A data de criação é obrigatória
-Toda vez que houver uma atualização em qualquer campo do Doc, o campo data da última
-atualização deve ser atualizado tambémO campo assinado é falso por padrão
-Na interface deve haver um botão escrito “assinar” que altera o status do campo para
-verdadeiro
-Caso o status do campo assinado seja verdadeiro o botão deve estar desativado
-Após definido como verdadeiro, o campo assinado deve ser imutável.
+O nome é **obrigatório**.<br>
+A campo deletado por padrão é **falso**.<br>
+A data de criação é **obrigatória**.<br>
+Toda vez que houver uma atualização em qualquer campo do ``Doc``, o campo data da última
+atualização deve ser atualizado também.<br>
+O campo assinado é **falso** por padrão.<br>
+Na interface deve haver um botão escrito **"assinar"** que altera o status do campo para
+**verdadeiro**.<br>
+Caso o status do campo assinado seja **verdadeiro**, o botão deve estar **desativado**.<br>
+Após definido como **verdadeiro**, o campo assinado deve ser **imutável**.<br>
 
 **Um User tem:**
 
-* email (string limite de 255 caracteres)
-* data da última redefinição de senha (datetime)
-* email verificado (boolean)
-* senha (string limite de 255 caracteres)
-* data de criação (datetime)
-* data da última atualização (datetime)
-* companhias associadas
-* companhia original
-* documentos associados
+* email (``String`` limite de 255 caracteres);
+* data da última redefinição de senha (``Datetime``);
+* email verificado (``boolean``);
+* senha (``String`` limite de 255 caracteres);
+* data de criação (``Datetime``);
+* data da última atualização (``Datetime``);
+* companhias associadas;
+* companhia original;
+* documentos associados.
 
-O email é obrigatório
-O campo email verificado por padrão é false
-O campo senha é obrigatório e deve ser maior ou igual a 6 caracteres
-O campo data de criação é obrigatório
-Toda vez que houver uma atualização em qualquer campo do usuário, o campo data da
-última atualização deve ser atualizado também
-Tudo deve ser escrito com testes automatizados
+O email é **obrigatório**.<br>
+O campo email verificado por padrão é **false**.<br>
+O campo senha é **obrigatório** e deve ser maior ou igual a 6 caracteres.<br>
+O campo data de criação é **obrigatório**.<br>
+Toda vez que houver uma atualização em qualquer campo do usuário, o campo data da última atualização deve ser atualizado também.<br>
+Tudo deve ser escrito com testes automatizados.<br>
 
-## Diagrama de classe
+# Diagrama de classes
 ![Diagrama de classe](documentation/images/class_diagram.jpg)
 
 
-## Instalação backend
+# Configuração do ambiente de desenvolvimento
 
-### Django request workflow
-https://nthb.github.io/django/
+## Backend
 
-### Django resquest framework
-https://www.django-rest-framework.org/tutorial/quickstart/ 
+No Ubuntu 22.04 64 bits, instalação o Python 3.11 com o seguinte comando:
 
-### Instalação Python
-```sudo apt install python3.11 -y```
+```bash
+sudo apt install python3.11 -y
+```
 
-### Instalção ven: criação de ambientes virtuais 
-```sudo apt install python3-venv -y```
+Instale o ``venv``, para ser usado na criação de ambientes virtuais com o Python. Execute o seguinte comando:
 
-### venv: criar
+```bash
+sudo apt install python3-venv -y
+```
 
-```python3 -m venv venv```
+Crie um ambiente virtual no projeto com os seguintes comandos
 
-## #Djanjo
-Pode ser instalado dentro do ambiente virtual.
+```bash
+mkdir -p desafiozap/venv
+cd desafiozap
+python3 -m venv venv
+```
 
-### ativar máquina virtual
-```source desafiozap/venv/bin/activate```
+Ative o ambiente virtual com o seguinte comando:
 
-### instalar o django dentro da máquina virtual
-```pip install django```
+```bash
+cd desafiozap/
+source venv/bin/activate
+```
 
-### criação dos arquivos do django
-```django-admin startproject front .```
+Instale o Django dentro do ambiente virtual, com o seguinte comando:
 
-### banco de dados
-Verificação da configuração do banco de dados no arquivo settings.py e criação da estrutura base do banco
+```bash
+pip install django
+```
 
-```python manage.py migrate```
+Crie os arquivos de configuração do Django.
 
-### criação de usuário admin para o django
-```python manage.py createsuperuser```
+```bash
+django-admin startproject front .
+```
 
-Usuário: admin    Senha: admin
+O comando a seguir realiza a configuração do banco de dados no arquivo ``settings.py`` e cria a estrutura base do banco de dados:
 
-### inicialização do django 
-Disponível em: http://127.0.0.1:8000/admin
+```bash
+python manage.py migrate
+```
 
-```python manage.py runserver```
+Crie o usuário administrador do Django:
 
-### criação de app ou modulos dentro da aplicação
-Cada app é responsável por uma parte do sistema
+```bash
+python manage.py createsuperuser
+```
+Exemplo:
 
-```python manage.py startapp core```
+* Usuário: **admin**
+* Senha: **admin**
 
-## Instação frontend
+Inicialize o Django. 
 
-### nvm
-```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash```
+```bash
+python manage.py runserver
+```
 
-```source .bashrc```
+O Django ficará acessível em: http://127.0.0.1:8000/admin
 
-### node
-```nvm install node```
+Criae o app ou módulos dentro da aplicação. Cada app é responsável por uma parte do sistema.
 
-### angular
+```bash
+python manage.py startapp core
+```
 
-https://angular.io/cli
+## Frontend
 
-```npm install -g @angular/cli```
+Execute os seguintes comandos para o ``nvm`` e o ``node``.
 
-```ng new frontend```
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-```cd frontend```
+source .bashrc
 
-```ng server```
+nvm install node
+```
 
-## Conceitos
+Instale o Angular com os seguintes comandos:
 
-### Django
+```bash
+npm install -g @angular/cli
+
+ng new frontend
+
+cd frontend
+
+ng server
+```
+
+# Conceitos
+
+## Django
 
 Django é um framework web Python de alto nível que permite o rápido desenvolvimento de sites seguros e de fácil manutenção. Construido por desenvolvedores experientes, o Django cuida de grande parte do trabalho de desenvolvimento web, para que você possa se concentrar em escrever seu aplicativo sem precisar reinventar a roda. É gratuito e de código aberto, tem uma comunidade próspera e ativa, ótima documentação e muitas opções de suporte gratuito e pago.
 
-**Apesar de ser uma liguagem fullstack quando trabalhamos com Django é interessante usar uma liguagem de front como Angular que além de mais especializada no frontend garante um desacoplamento entre back e front.**
+**Apesar de ser uma liguagem fullstack quando trabalhamos com Django é interessante usar uma liguagem de front como Angular, que além de mais especializada no frontend garante um desacoplamento entre back e front.**
 
 
-### Angular
+## Angular
+
 Angular é um popular framework de código aberto desenvolvido pelo Google para a criação de aplicativos da web dinâmicos e interativos.
 
 Ele se baseia em TypeScript, uma linguagem superset do JavaScript, e utiliza uma abordagem orientada a componentes para a construção de interfaces. 
 
-**Grande vantagem de usar o Angular é que gera Apps Sigle Page: para cada chamada ao servidor não precisa carregar a página inteira (apenas a primeira vez)**
+**Grande vantagem de usar o Angular é que gera Apps Sigle Page: para cada chamada ao servidor não precisa carregar a página inteira (apenas a primeira vez).**
 
 
+# Referências
+
+* Django request workflow: https://nthb.github.io/django/
+* Django resquest framework: https://www.django-rest-framework.org/tutorial/quickstart/ 
+
+
+# Desenvolvedora
+
+Janaina Militão do Nascimento
+
+# Licença de uso
+
+[GPLv3.0 2023](LICENSE)
