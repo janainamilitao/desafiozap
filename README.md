@@ -156,7 +156,7 @@ python manage.py runserver
 
 O Django ficará acessível em: http://127.0.0.1:8000/admin
 
-Criae o app ou módulos dentro da aplicação. Cada app é responsável por uma parte do sistema.
+Crie o app ou módulos dentro da aplicação. Cada app é responsável por uma parte do sistema.
 
 ```bash
 python manage.py startapp core

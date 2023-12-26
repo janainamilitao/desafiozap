@@ -2,33 +2,53 @@ from django.db import models
 
 
 class Company(models.Model):
-    name: models.CharField(max_length=255)
-    creation: models.DateTimeField()
-    updated: models.DateTimeField()
-    timezone: models.CharField(max_length=50) 
-    linguagem: models.CharField(50) 
+    name = models.CharField(max_length=255)
+    creation = models.DateTimeField()
+    updated = models.DateTimeField()
+    timezone = models.CharField(
+        default='-03:00',
+        max_length=50,
+        choices=(
+            ('-03:00', 'GMT -3'),
+            ('-04:00', 'GMT -4'),
+            ('-05:00', 'GMT -5'),
+        )
+    ) 
+    language = models.CharField(
+        default='pt',
+        max_length=50,
+        choices=(
+            ('pt', 'Português'),
+            ('es', 'Espanhol'),
+            ('en', 'Inglês'),
+        )
+    )
 
     def __str__(self) -> str:
-        return self.name
+        return self.name 
+
     
 class Doc(models.Model):
-    name: models.CharField(max_length=255)
-    deleted: models.BooleanField()
-    creation: models.DateTimeField()
-    updated: models.DateTimeField()
-    signatureDeadline: models.DateTimeField()
-    signed: models.BooleanField()
+    name = models.CharField(max_length=255)
+    deleted = models.BooleanField(default=False)
+    creation = models.DateTimeField()
+    updated = models.DateTimeField()
+    signatureDeadline = models.DateTimeField()
+    signed = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.name
+
 
 class User(models.Model):
-    name: models.CharField(max_length=255)
-    dateLastPassReset: models.DateTimeField()
-    verifedEmail: models.BooleanField()
-    password: models.CharField(max_length=255)
-    creation: models.DateTimeField()
-    updated: models.DateTimeField()
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    dateLastPassReset = models.DateTimeField()
+    verifedEmail = models.BooleanField(default=False)
+    password = models.CharField(max_length=255)
+    creation = models.DateTimeField()
+    updated = models.DateTimeField()
 
     def __str__(self) -> str:
         return self.name
+
