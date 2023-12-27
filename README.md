@@ -183,7 +183,7 @@ ng new frontend
 
 cd frontend
 
-ng server
+ng serve
 ```
 
 # Conceitos
@@ -209,6 +209,10 @@ Ele se baseia em TypeScript, uma linguagem superset do JavaScript, e utiliza uma
 * Django request workflow: https://nthb.github.io/django/
 * Django resquest framework: https://www.django-rest-framework.org/tutorial/quickstart/ 
 
+https://github.com/charan-sai-v/django_angular_crud_operations_with_postgresql/tree/main/frontend/src/app
+
+
+https://github.com/adamchainz/django-cors-headers
 
 # Desenvolvedora
 
