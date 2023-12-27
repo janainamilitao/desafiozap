@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Company(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     creation = models.DateTimeField()
     updated = models.DateTimeField()
@@ -27,8 +28,9 @@ class Company(models.Model):
     def __str__(self) -> str:
         return self.name 
 
-    
+
 class Doc(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     deleted = models.BooleanField(default=False)
     creation = models.DateTimeField()
@@ -41,6 +43,7 @@ class Doc(models.Model):
 
 
 class User(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     dateLastPassReset = models.DateTimeField()
