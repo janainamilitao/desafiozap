@@ -214,6 +214,8 @@ https://github.com/charan-sai-v/django_angular_crud_operations_with_postgresql/t
 
 https://github.com/adamchainz/django-cors-headers
 
+https://material.angular.io/guide/getting-started
+
 # Desenvolvedora
 
 Janaina Militão do Nascimento
