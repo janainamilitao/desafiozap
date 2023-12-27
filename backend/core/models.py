@@ -6,11 +6,11 @@ class User(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
-    dateLastPassReset = models.DateTimeField()
-    verifedEmail = models.BooleanField(default=False)
+    date_last_pass_reset = models.DateTimeField()
+    verifed_email = models.BooleanField(default=False)
     password = models.CharField(max_length=255)
-    dateCreation = models.DateTimeField(default=timezone.now)
-    dateUpdated = models.DateTimeField()
+    date_creation = models.DateTimeField(default=timezone.now)
+    date_updated = models.DateTimeField()
 
     def __str__(self) -> str:
      
@@ -29,6 +29,10 @@ class Doc(models.Model):
         on_delete=models.CASCADE,
         blank=True,
         null=True)
+    
+    def update(self):
+        self.date_updated = timezone.now()
+        self.save()
 
     def __str__(self) -> str:
         return self.name
