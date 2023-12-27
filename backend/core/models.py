@@ -9,18 +9,44 @@ class User(models.Model):
     dateLastPassReset = models.DateTimeField()
     verifedEmail = models.BooleanField(default=False)
     password = models.CharField(max_length=255)
-    creation = models.DateTimeField()
-    updated = models.DateTimeField()
+    dateCreation = models.DateTimeField(default=timezone.now)
+    dateUpdated = models.DateTimeField()
+
+    def __str__(self) -> str:
+     
+        return self.name
+
+class Doc(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    deleted = models.BooleanField(default=False)
+    date_creation = models.DateTimeField(default=timezone.now)
+    date_updated = models.DateTimeField()
+    signature_deadline = models.DateTimeField()
+    signed = models.BooleanField(default=False)
+    user_created = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True)
 
     def __str__(self) -> str:
         return self.name
-
+    
 class Company(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
-    creation = models.DateTimeField(default=timezone.now)
-    updated = models.DateTimeField(blank=True, null=True)
-    # userCreate = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    date_creation = models.DateTimeField(default=timezone.now)
+    date_updated = models.DateTimeField(blank=True, null=True)
+    associates_doc = models.ManyToManyField(Doc, 'associates_doc')
+    associates_user = models.ManyToManyField(User, 'associates_user')
+    guests = models.ManyToManyField(User, 'guests')
+    user_created = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True)
+    
     timezone = models.CharField(
         default='-03:00',
         max_length=50,
@@ -46,20 +72,3 @@ class Company(models.Model):
 
     def __str__(self) -> str:
         return self.name 
-
-
-class Doc(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    deleted = models.BooleanField(default=False)
-    creation = models.DateTimeField()
-    updated = models.DateTimeField()
-    signatureDeadline = models.DateTimeField()
-    signed = models.BooleanField(default=False)
-
-    def __str__(self) -> str:
-        return self.name
-
-
-
-
