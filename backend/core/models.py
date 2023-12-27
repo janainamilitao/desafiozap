@@ -1,11 +1,26 @@
 from django.db import models
+from django.utils import timezone
+from django.conf import settings
 
+class User(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    dateLastPassReset = models.DateTimeField()
+    verifedEmail = models.BooleanField(default=False)
+    password = models.CharField(max_length=255)
+    creation = models.DateTimeField()
+    updated = models.DateTimeField()
+
+    def __str__(self) -> str:
+        return self.name
 
 class Company(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
-    creation = models.DateTimeField()
-    updated = models.DateTimeField()
+    creation = models.DateTimeField(default=timezone.now)
+    updated = models.DateTimeField(blank=True, null=True)
+    # userCreate = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     timezone = models.CharField(
         default='-03:00',
         max_length=50,
@@ -25,6 +40,10 @@ class Company(models.Model):
         )
     )
 
+    def update(self):
+        self.updated = timezone.now()
+        self.save()
+
     def __str__(self) -> str:
         return self.name 
 
@@ -42,16 +61,5 @@ class Doc(models.Model):
         return self.name
 
 
-class User(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
-    dateLastPassReset = models.DateTimeField()
-    verifedEmail = models.BooleanField(default=False)
-    password = models.CharField(max_length=255)
-    creation = models.DateTimeField()
-    updated = models.DateTimeField()
 
-    def __str__(self) -> str:
-        return self.name
 
