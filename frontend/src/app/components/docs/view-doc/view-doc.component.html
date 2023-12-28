@@ -15,7 +15,7 @@
               <h1 class="text-center">Documentos</h1>
               
               <!--Add button -->
-              <button mat-raised-button color="primary" routerLink="/add">Adicionar</button>
+              <button mat-raised-button color="primary" routerLink="/add-doc">Adicionar</button>
               <table class="mat-elevation-z8">
                   <thead>
                     <tr>
@@ -39,7 +39,7 @@
                       <td>{{doc.signed}}</td>
                       <td>{{doc.user_created.name}}</td>
                       <td>
-                        <button mat-mini-fab color="primary" routerLink="/update/{{doc.id}}">
+                        <button mat-mini-fab color="primary" routerLink="/update-doc/{{doc.id}}">
                           <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-mini-fab color="warn" (click)="deleteDoc(doc.id)">

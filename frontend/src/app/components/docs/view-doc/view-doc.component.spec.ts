@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ViewDocComponent } from './view-doc.component';
+import { ViewDocumentComponent } from './view-doc.component';
 
 
 describe('ViewUserComponent', () => {
-  let component: ViewDocComponent;
-  let fixture: ComponentFixture<ViewDocComponent>;
+  let component: ViewDocumentComponent;
+  let fixture: ComponentFixture<ViewDocumentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewDocComponent ]
+      declarations: [ ViewDocumentComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewDocComponent);
+    fixture = TestBed.createComponent(ViewDocumentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -15,7 +15,7 @@
               <h1 class="text-center">Usuários</h1>
 
               <!--Add button -->
-              <button mat-raised-button color="primary" routerLink="/add">Adicionar</button>
+              <button mat-raised-button color="primary" routerLink="/add-user">Adicionar</button>
               <table class="mat-elevation-z8">
                   <thead>
                     <tr>
@@ -39,7 +39,7 @@
                       <td>{{user.date_creation}}</td>
                       <td>{{user.date_updated}}</td>
                       <td>
-                        <button mat-mini-fab color="primary" routerLink="/update/{{user.id}}">
+                        <button mat-mini-fab color="primary" routerLink="/update-user/{{user.id}}">
                           <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-mini-fab color="warn" (click)="deleteUser(user.id)">
