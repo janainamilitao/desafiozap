@@ -43,10 +43,13 @@ class Doc(models.Model):
         on_delete=models.CASCADE,
         blank=True,
         null=True)
+
+    def save(self, *args, **kwargs):
+            self.date_creation = timezone.now()
+            super().save(*args, **kwargs)
     
-    def update(self):
-        self.date_updated = timezone.now()
-        self.save()
+    def update_date_updated(sender, instance, **kwargs):
+         instance.date_updated = timezone.now()
 
     def __str__(self) -> str:
         return self.name
@@ -84,9 +87,12 @@ class Company(models.Model):
         )
     )
 
-    def update(self):
-        self.updated = timezone.now()
-        self.save()
+    def save(self, *args, **kwargs):
+                self.date_creation = timezone.now()
+                super().save(*args, **kwargs)
+
+    def update_date_updated(sender, instance, **kwargs):
+         instance.date_updated = timezone.now()
 
     def __str__(self) -> str:
         return self.name 

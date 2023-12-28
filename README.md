@@ -216,6 +216,10 @@ https://github.com/adamchainz/django-cors-headers
 
 https://material.angular.io/guide/getting-started
 
+https://github.com/Gpzim98/
+
+https://www.udemy.com/course/aplicacao-web-django-angular-framework/l
+
 # Desenvolvedora
 
 Janaina Militão do Nascimento
