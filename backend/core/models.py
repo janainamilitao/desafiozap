@@ -6,14 +6,28 @@ class User(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
-    date_last_pass_reset = models.DateTimeField()
+    date_last_pass_reset = models.DateTimeField(blank=True, null=True)
     verifed_email = models.BooleanField(default=False)
     password = models.CharField(max_length=255)
     date_creation = models.DateTimeField(default=timezone.now)
-    date_updated = models.DateTimeField()
+    date_updated = models.DateTimeField(blank=True, null=True)
 
-    def __str__(self) -> str:
-     
+    def update_last_pass_reset(sender, instance, **kwargs):
+        # Verifique se o campo 'email' foi alterado
+        if instance.pk is not None:  # Se o objeto já existe no banco de dados
+            original = User.objects.get(pk=instance.pk)
+            if instance.password != original.password:
+                # Atualize o campo 'nome' aqui com base na alteração do 'email'
+                instance.date_last_pass_reset = timezone.now()
+
+    def save(self, *args, **kwargs):
+        self.date_creation = timezone.now()
+        super().save(*args, **kwargs)
+
+    def update_date_updated(sender, instance, **kwargs):
+       instance.date_updated = timezone.now()
+
+    def __str__(self) -> str:     
         return self.name
 
 class Doc(models.Model):
@@ -21,7 +35,7 @@ class Doc(models.Model):
     name = models.CharField(max_length=255)
     deleted = models.BooleanField(default=False)
     date_creation = models.DateTimeField(default=timezone.now)
-    date_updated = models.DateTimeField()
+    date_updated = models.DateTimeField(blank=True, null=True)
     signature_deadline = models.DateTimeField()
     signed = models.BooleanField(default=False)
     user_created = models.ForeignKey(
