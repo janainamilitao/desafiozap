@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiServive } from '../../api.service';
+import { ApiServive } from '../../../api.service';
 
 @Component({
   selector: 'app-view-user',
@@ -9,23 +9,23 @@ import { ApiServive } from '../../api.service';
 export class ViewUserComponent {
   users: any | undefined;
 
-  constructor(private userService: ApiServive) { 
+  constructor(private service: ApiServive) { 
    
   }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(
+    this.service.getObjects("users/").subscribe(
       data => {
       this.users = data
     },
     error => {
-      console.log("User not found")
+      console.log("Usuárrio não encontrado")
     }
     );
   }
 
   deleteUser(id: number) {
-    this.userService.deleteUser(id).subscribe(data => {
+    this.service.deleteObject("users/",id).subscribe(data => {
       console.log(data);
       this.ngOnInit();
     });

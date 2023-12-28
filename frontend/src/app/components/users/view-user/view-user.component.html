@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Users</title>
+</head>
+<body>
+<!--Table to display all the users-->
+  <!--container-->
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <h1 class="text-center">Usuários</h1>
+
+              <!--Add button -->
+              <button mat-raised-button color="primary" routerLink="/add">Adicionar</button>
+              <table class="mat-elevation-z8">
+                  <thead>
+                    <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Último reset de senha</th>
+                      <th scope="col">Email verificado</th>
+                      <th scope="col">Criação</th>
+                      <th scope="col">Atualização</th>
+                      <th scope="col">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of users">
+                      <th scope="row">{{user.id}}</th>
+                      <td>{{user.name}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.date_last_pass_reset}}</td>
+                      <td>{{user.verifed_email}}</td>
+                      <td>{{user.date_creation}}</td>
+                      <td>{{user.date_updated}}</td>
+                      <td>
+                        <button mat-mini-fab color="primary" routerLink="/update/{{user.id}}">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-mini-fab color="warn" (click)="deleteUser(user.id)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+          </div>
+      </div>
+  </div>
+
+</body>
+</html>

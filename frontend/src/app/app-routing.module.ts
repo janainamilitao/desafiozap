@@ -1,13 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddUserComponent } from './components/add-user/add-user.component';
-import { UpdateUserComponent } from './components/update-user/update-user.component';
-import { ViewUserComponent } from './components/view-user/view-user.component';
+import { AddUserComponent } from './components/users/add-user/add-user.component';
+import { UpdateUserComponent } from './components/users/update-user/update-user.component';
+import { ViewUserComponent } from './components/users/view-user/view-user.component';
+import { ViewDocumentComponent } from './components/docs/view-doc/view-doc.component';
+import { AddDocumentComponent } from './components/docs/add-doc/add-doc.component';
+import { UpdateDocumentComponent } from './components/docs/update-doc/update-doc.component';
 
 const routes: Routes = [
-  { path: '', component: ViewUserComponent },
-  { path: 'add', component: AddUserComponent },
-  { path: 'update/:id', component: UpdateUserComponent}
+  { path: 'users', component: ViewUserComponent },
+  { path: 'add-user', component: AddUserComponent },
+  { path: 'update-user/:id', component: UpdateUserComponent},
+
+  { path: 'docs', component: ViewDocumentComponent },
+  { path: 'add-doc', component: AddDocumentComponent},
+  { path: 'update-doc/:id', component: UpdateDocumentComponent},
+
+  { path: '', redirectTo: '/users', pathMatch: 'full' },
 ];
 
 @NgModule({
