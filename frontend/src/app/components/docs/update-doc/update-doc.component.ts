@@ -10,7 +10,6 @@ import { Document } from '../../../models/document.model';
 })
 export class UpdateDocumentComponent {
 
-
   document: Document = {
     id: 0,
     name: '',

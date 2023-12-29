@@ -24,7 +24,7 @@ export class AddDocumentComponent {
 
     addDoc(): void {
       this.service.addObject("docs/",this.document).subscribe(() => {
-        this.router.navigate(['/docs']);
+        this.router.navigate(['docs/']);
       });
     }
 
