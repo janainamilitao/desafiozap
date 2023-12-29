@@ -15,7 +15,8 @@ export class AddDocumentComponent {
     name: '',
     deleted: false,
     signature_deadline: new Date(),
-    signed: false
+    signed: false,
+    user_created:{ id: 0, name:'', email: '', verifed_email: false, password: ''}
   };
 
     constructor(private service: ApiServive, private router: Router) { }

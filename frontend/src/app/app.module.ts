@@ -23,6 +23,10 @@ import { ViewDocumentComponent } from './components/docs/view-doc/view-doc.compo
 import { AddDocumentComponent } from './components/docs/add-doc/add-doc.component';
 import { UpdateDocumentComponent } from './components/docs/update-doc/update-doc.component';
 
+import { ViewCompanyComponent } from './components/companys/view-company/view-company.component';
+import { AddCompanyComponent } from './components/companys/add-company/add-company.component';
+import { UpdateCompanyComponent } from './components/companys/update-company/update-company.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +37,10 @@ import { UpdateDocumentComponent } from './components/docs/update-doc/update-doc
     ViewUserComponent,
     ViewDocumentComponent,
     AddDocumentComponent,
-    UpdateDocumentComponent
+    UpdateDocumentComponent,
+    ViewCompanyComponent,
+    AddCompanyComponent,
+    UpdateCompanyComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,8 @@ import { ViewUserComponent } from './components/users/view-user/view-user.compon
 import { ViewDocumentComponent } from './components/docs/view-doc/view-doc.component';
 import { AddDocumentComponent } from './components/docs/add-doc/add-doc.component';
 import { UpdateDocumentComponent } from './components/docs/update-doc/update-doc.component';
+import { ViewCompanyComponent } from './components/companys/view-company/view-company.component';
+import { UpdateCompanyComponent } from './components/companys/update-company/update-company.component';
 
 const routes: Routes = [
   { path: 'users', component: ViewUserComponent },
@@ -15,6 +17,10 @@ const routes: Routes = [
   { path: 'docs', component: ViewDocumentComponent },
   { path: 'add-doc', component: AddDocumentComponent},
   { path: 'update-doc/:id', component: UpdateDocumentComponent},
+
+  { path: 'companys', component: ViewCompanyComponent },
+  { path: 'add-company', component: AddDocumentComponent},
+  { path: 'update-company/:id', component: UpdateCompanyComponent},
 
   { path: '', redirectTo: '/users', pathMatch: 'full' },
 ];
