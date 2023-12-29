@@ -26,6 +26,8 @@ import { ViewCompanyComponent } from './components/companys/view-company/view-co
 import { AddCompanyComponent } from './components/companys/add-company/add-company.component';
 import { UpdateCompanyComponent } from './components/companys/update-company/update-company.component';
 
+import { MenuComponent } from './menu.component';
+import { ContactComponent } from './contact.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { UpdateCompanyComponent } from './components/companys/update-company/upd
     UpdateDocumentComponent,
     ViewCompanyComponent,
     AddCompanyComponent,
-    UpdateCompanyComponent
+    UpdateCompanyComponent,
+    MenuComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +58,6 @@ import { UpdateCompanyComponent } from './components/companys/update-company/upd
     MatIconModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, MenuComponent, ContactComponent]
 })
 export class AppModule { }
