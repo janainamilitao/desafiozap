@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
-import { MenuComponent } from './menu.component';
 
 import { AppComponent } from './app.component';
 
@@ -31,7 +30,6 @@ import { UpdateCompanyComponent } from './components/companys/update-company/upd
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
     AddUserComponent,
     UpdateUserComponent,
     ViewUserComponent,

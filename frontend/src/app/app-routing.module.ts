@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'add-company', component: AddDocumentComponent},
   { path: 'update-company/:id', component: UpdateCompanyComponent},
 
-  { path: '', redirectTo: '/users', pathMatch: 'full' },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
 ];
 
 @NgModule({
