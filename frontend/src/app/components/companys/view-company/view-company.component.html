@@ -1,47 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Companhias</title>
-</head>
-<body>
-<!--Table to display all the documentos-->
-  <!--container-->
-  <div class="container">
-      <div class="row">
-          <div class="col-md-12">
-              <h1 class="text-center">Companhias</h1>
-              
-              <!--Add button -->
-              <button mat-raised-button color="primary" routerLink="/add-company">Adicionar</button>
-              <table class="mat-elevation-z8">
-                  <thead>
-                    <tr>
-                      <th scope="col">Id</th>
-                      <th scope="col">Nome</th>
-                      <th scope="col">Ações</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let company of companys">
-                      <th scope="row">{{company.id}}</th>
-                      <td>{{company.name}}</td>
-                      <td>
-                        <button mat-mini-fab color="primary" routerLink="/update-company/{{company.id}}">
-                          <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-mini-fab color="warn" (click)="deleteCompany(company.id)">
-                          <mat-icon>delete</mat-icon>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-          </div>
-      </div>
-  </div>    
+<app-content>
+  <h1 class="text-center">Instituições</h1>
 
-</body>
-</html>
+  <!--Add button -->
+  <button class="button" routerLink="/add-company">Adicionar</button>
+  <table class="mat-elevation-z8" style="margin-top: 15px;">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of companys">
+          <th scope="row">{{company.id}}</th>
+          <td>{{company.name}}</td>
+          <td>
+            <button class="button icon solid fa-edit" routerLink="/update-company/{{company.id}}"></button>
+            <button class="button icon solid fa-trash" (click)="deleteCompany(company.id)"></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</app-content>

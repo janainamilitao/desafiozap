@@ -1,46 +1,41 @@
 <app-content>
+  <div class="mx-auto w-100">
     <h2 class="text-left mb-3">Novo Usuário</h2>
     <br>
     <form (submit)="addUser()">
-      <!--name-->
-      <div class="row">
-        <div class="col-md-6 form-group mb-3">
+      <!--Name-->
+        <div class="col-md-12 form-group mb-3">
           <label for="name" class="form-label">Nome</label>
           <input id="name" [(ngModel)]="user.name" type="text" name="name" class="form-control" required>
         </div>
-      </div>
-
 
       <!--Email-->
-      <div class="row">
-        <div class="col-md-6 form-group mb-3">
+
+        <div class="col-md-12 form-group mb-3">
           <label for="email" class="form-label">Email</label>
           <input id="email" type="email"  [(ngModel)]="user.email" name="email" class="form-control"  required>
         </div>
-      </div>
 
       <!--Verifed email-->
-      <div class="row">
-      <div class="col-md-6 form-group mb-3">
-        <input class="form-check-input" type="checkbox" [(ngModel)]="user.verifed_email" id="verifed_email">
-        <label class="form-check-label" for="verifed_email">
-          Email Verificado
-        </label>
-      </div>
+      <div class="col-6 col-12-small">
+        <input type="checkbox" id="verifed_email" name="verifed_email" [(ngModel)]="user.verifed_email">
+        <label for="verifed_email">Email verificado</label>
       </div>
 
       <!--Password-->
       <div class="row">
-        <div class="col-md-6 form-group mb-3">
+        <div class="col-md-12 form-group mb-3">
           <label for="password" class="form-label">Senha</label>
           <input id="password" type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="password" required>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-3 form-group">
-          <input class="btn btn-primary w-100" type="submit" value="Salvar">
-        </div>
+      <br>
+      <div class="col-md-12 d-flex justify-content-center">
+        <input class="btn btn-primary col-md-4" type="submit" value="Salvar">
+        <button class="button primary col-md-4" routerLink="/users">Cancelar</button>
       </div>
+      
   </form>
+  </div>
 </app-content>

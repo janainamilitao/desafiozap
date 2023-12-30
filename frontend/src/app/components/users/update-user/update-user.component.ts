@@ -39,7 +39,7 @@ export class UpdateUserComponent {
   updateUser(): void {
     this.service.updateObject("users/",this.user).subscribe(
       () => {
-        this.router.navigate(['/']);
+        this.router.navigate(['users/']);
       },
       (error) => {
         console.error('Erro ao atualizar o usuário:', error);

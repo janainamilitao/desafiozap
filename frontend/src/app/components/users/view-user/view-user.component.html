@@ -26,11 +26,10 @@
           <td>{{user.date_creation}}</td>
           <td>{{user.date_updated}}</td>
           <td>
-            <button  class="button icon solid fa-edit" routerLink="/update-user/{{user.id}}"></button>
+            <button class="button icon solid fa-edit" routerLink="/update-user/{{user.id}}"></button>
             <button class="button primary icon solid fa-trash" (click)="deleteUser(user.id)"></button>
           </td>
         </tr>
       </tbody>
     </table>
-</app-content>            
-        
+</app-content>

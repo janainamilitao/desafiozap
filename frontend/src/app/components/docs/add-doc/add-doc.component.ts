@@ -9,7 +9,7 @@ import { Document } from '../../../models/document.model';
   styleUrls: ['./add-doc.component.css']
 })
 export class AddDocumentComponent {
-  
+
   document: Document = {
     id: 0,
     name: '',
@@ -19,14 +19,13 @@ export class AddDocumentComponent {
     user_created:{ id: 0, name:'', email: '', verifed_email: false, password: ''}
   };
 
-    constructor(private service: ApiServive, private router: Router) { }
-  
+  constructor(private service: ApiServive, private router: Router) { }
 
-    addDoc(): void {
-      this.service.addObject("docs/",this.document).subscribe(() => {
-        this.router.navigate(['docs/']);
-      });
-    }
-
+  addDoc(): void {
+    this.service.addObject("docs/",this.document).subscribe(() => {
+      this.router.navigate(['docs/']);
+    });
   }
-    
+
+}
+

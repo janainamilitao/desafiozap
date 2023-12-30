@@ -9,7 +9,6 @@ import { UpdateDocumentComponent } from './components/docs/update-doc/update-doc
 import { ViewCompanyComponent } from './components/companys/view-company/view-company.component';
 import { UpdateCompanyComponent } from './components/companys/update-company/update-company.component';
 import { ContentComponent } from './components/content.componet'; 
-import { AppComponent } from './app.component';
 
 const routes: Routes = [
 

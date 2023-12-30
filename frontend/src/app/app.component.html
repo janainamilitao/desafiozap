@@ -1,19 +1,23 @@
 <div id="wrapper">
-<div id="main">
-	<div class="inner">
-        <app-content>
-            <router-outlet></router-outlet>
-        </app-content>  
-    </div>
-</div>
-
-<div id="sidebar">
+  <div id="main">
     <div class="inner">
-        <app-menu></app-menu>
-        <app-contact></app-contact>
+      <header id="header">
+        <div class="logo">
+        </div>
+      </header>
+        
+      <app-content>
+          <router-outlet></router-outlet>
+      </app-content>
     </div>
-</div>
+  </div>
 
+  <div id="sidebar">
+      <div class="inner">
+          <app-menu></app-menu>
+          <app-contact></app-contact>
+      </div>
+  </div>
 </div>
 
 
