@@ -10,20 +10,31 @@ import { Document } from '../../../models/document.model';
 })
 export class AddDocumentComponent {
 
+  users: any[] = []; 
+
+  ngOnInit() {
+    this.service.getObjects("users/").subscribe(
+      data => {
+      this.users = data
+    })
+  }
+
+  
   document: Document = {
     id: 0,
     name: '',
     deleted: false,
     signature_deadline: new Date(),
     signed: false,
-    user_created:{ id: 0, name:'', email: '', verifed_email: false, password: ''}
+    user_created: {id: 0, name: '', email: '', verifed_email:false, password: '' }
   };
+
 
   constructor(private service: ApiServive, private router: Router) { }
 
   addDoc(): void {
     this.service.addObject("docs/",this.document).subscribe(() => {
-      this.router.navigate(['docs/']);
+      this.router.navigate(['docs/']);     
     });
   }
 

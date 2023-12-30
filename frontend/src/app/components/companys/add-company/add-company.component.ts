@@ -9,6 +9,15 @@ import { Company } from '../../../models/company.model';
   styleUrls: ['./add-company.component.css']
 })
 export class AddCompanyComponent {
+
+  users: any[] = []; 
+
+  ngOnInit() {
+    this.service.getObjects("users/").subscribe(
+      data => {
+      this.users = data
+    })
+  }
   
   company: Company = {
     id: 0,

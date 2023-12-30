@@ -8,7 +8,8 @@ import { AddDocumentComponent } from './components/docs/add-doc/add-doc.componen
 import { UpdateDocumentComponent } from './components/docs/update-doc/update-doc.component';
 import { ViewCompanyComponent } from './components/companys/view-company/view-company.component';
 import { UpdateCompanyComponent } from './components/companys/update-company/update-company.component';
-import { ContentComponent } from './components/content.componet'; 
+import { AddCompanyComponent } from './components/companys/add-company/add-company.component';
+import { ContentComponent } from './components/content.componet';
 
 const routes: Routes = [
 
@@ -21,7 +22,7 @@ const routes: Routes = [
   { path: 'update-doc/:id', component: UpdateDocumentComponent},
 
   { path: 'companys', component: ViewCompanyComponent },
-  { path: 'add-company', component: AddDocumentComponent},
+  { path: 'add-company', component: AddCompanyComponent},
   { path: 'update-company/:id', component: UpdateCompanyComponent},
 
   { path: '', component: ContentComponent }

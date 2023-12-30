@@ -1,8 +1,8 @@
 <app-content>
-    <div class="mx-auto w-75">
-        <h2 class="text-center mb-3">Adicionar Documento</h2>
+    <div class="mx-auto w-100">
+      <h2 class="text-center mb-3">Adicionar Documento</h2>
         <form (submit)="addDoc()">
-          <!--name-->
+          
           <div class="row">
             <div class="col-md-12 form-group mb-3">
               <label for="name" class="form-label">Nome</label>
@@ -10,14 +10,35 @@
             </div>
           </div>
 
-          <div class="row d-flex justify-content-center">
-            <div class="col-md-6 form-group">
-              <input class="btn btn-primary w-100" type="submit" value="Slavar">
+          <div class="row">
+            <div class="col-md-12 form-group mb-4">
+              <label for="signature_deadline" class="form-label">Data assinatura</label>
+              <input type="date" id="signature_deadline" name="signature_deadline" [(ngModel)]="document.signature_deadline">            
             </div>
           </div>
 
-        <div>
-        </div>
+          <div class="row">
+            <div class="col-md-12 form-group mb-3">
+              <input type="checkbox" id="signed" name="signed" [(ngModel)]="document.signed">
+              <label for="signed">Assinado: </label>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12 form-group mb-4">
+              <label for="user_created" class="form-label">Usuário Criação</label>
+              <select id="user_created" name="user_created" [(ngModel)]="document.user_created">
+                  <option *ngFor="let user of users" [value]="user">{{ user.name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-12 d-flex justify-content-center">
+            <input class="button col-md-4" type="submit" value="Salvar">
+            <button class="button primary col-md-4" routerLink="/docs">Cancelar</button>
+          </div>
+          
       </form>
-    </div>
+  </div>
 </app-content>

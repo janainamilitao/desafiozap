@@ -10,6 +10,8 @@ import { Document } from '../../../models/document.model';
 })
 export class UpdateDocumentComponent {
 
+  users: any[] = []; 
+
   document: Document = {
     id: 0,
     name: '',
@@ -28,7 +30,7 @@ export class UpdateDocumentComponent {
 
       this.service.getObject("docs/",docId).subscribe(
         (docCreated) =>{
-          this.document  = docCreated
+          this.document  = docCreated;
         },
         (error)=>{
           console.error('Erro ao obter detalhes do usuário:', error)
