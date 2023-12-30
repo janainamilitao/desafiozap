@@ -21,10 +21,10 @@
           <th scope="row">{{user.id}}</th>
           <td>{{user.name}}</td>
           <td>{{user.email}}</td>
-          <td>{{user.date_last_pass_reset}}</td>
-          <td>{{user.verifed_email}}</td>
-          <td>{{user.date_creation}}</td>
-          <td>{{user.date_updated}}</td>
+          <td>{{user.date_last_pass_reset | date:'dd/MM/yyyy' }}</td>
+          <td>{{user.verifed_email  ? 'Sim' : 'Não'}}</td>
+          <td>{{user.date_creation | date:'dd/MM/yyyy' }}</td>
+          <td>{{user.date_updated | date:'dd/MM/yyyy' }}</td>
           <td>
             <button class="button icon solid fa-edit" routerLink="/update-user/{{user.id}}"></button>
             <button class="button primary icon solid fa-trash" (click)="deleteUser(user.id)"></button>

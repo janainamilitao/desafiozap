@@ -20,9 +20,9 @@
           <th scope="row">{{doc.id}}</th>
           <td>{{doc.name}}</td>
           <td>{{doc.email}}</td>
-          <td>{{doc.date_creation}}</td>
-          <td>{{doc.signature_deadline}}</td>
-          <td>{{doc.signed}}</td>
+          <td>{{doc.date_creation | date:'dd/MM/yyyy' }}</td>
+          <td>{{doc.signature_deadline | date:'dd/MM/yyyy' }}</td>
+          <td>{{doc.signed ? 'Sim' : 'Não'}}</td>
           <!-- <td>{{doc.user_created.name}}</td> -->
           <td>
             <button class="button icon solid fa-edit" routerLink="/update-doc/{{doc.id}}"></button>
