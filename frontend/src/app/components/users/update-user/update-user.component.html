@@ -1,61 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add User</title>
-</head>
-<body>  
-  <div class="my-5">
-      <div class="mx-auto w-25 " style="max-width:100%;">
-        <h2 class="text-center mb-3">Atualizar</h2>
-        <form  (submit)="updateUser()" >
-          <div class="row">
-            <div class="col-md-12 form-group mb-3">
-              <label for="name" class="form-label">Nome</label>
-              <input id="name" [(ngModel)]="user.name" type="text" name="name" class="form-control" required>
-            </div>
-          </div>
-                
-          <!--Email-->
-          <div class="row">
-            <div class="col-md-12 form-group mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input id="email" type="email"  [(ngModel)]="user.email" name="email" class="form-control"  required>
-            </div>
-          </div>
-
-          <!--Verifed email-->
-          <div class="row">
-          <div class="col-md-12 form-group mb-3">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="user.verifed_email" id="verifed_email">
-            <label class="form-check-label" for="defaultCheck1">
-              Email Verificado
-            </label>
-          </div>
-        </div>
-
-        <!--Password-->
-        <div class="row">
-          <div class="col-md-12 form-group mb-3">
-            <label for="password" class="form-label">Senha</label>
-            <input id="password" type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="password" required>
-          </div>
-        </div>
-          
-      
-        <div class="row">
-          <div class="col-md-12 form-group">
-            <button class="btn btn-primary w-100" type="submit" value="Submit">Button</button>
-          </div>
-        </div>
-      
-      <div>
+<app-content>
+  <h2 class="text-left mb-3">Atualizar Usuário</h2>
+  <br>
+  <form  (submit)="updateUser()" >
+    <div class="row">
+      <div class="col-md-6 form-group mb-3">
+        <label for="name" class="form-label">Nome</label>
+        <input id="name" [(ngModel)]="user.name" type="text" name="name" class="form-control" required>
       </div>
-    </form>
-  </div>
-</div>
+    </div>
+              
+    <!--Email-->
+    <div class="row">
+      <div class="col-md-6 form-group mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" type="email"  [(ngModel)]="user.email" name="email" class="form-control"  required>
+      </div>
+    </div>
 
-</body>
-</html>
+        <!--Verifed email-->
+    <div class="row">
+      <div class="col-md-6 form-group mb-3">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="user.verifed_email" id="verifed_email">
+        <label class="form-check-label" for="defaultCheck1">
+          Email Verificado
+        </label>
+      </div>
+    </div>
+
+    <!--Password-->
+    <div class="row">
+      <div class="col-md-6 form-group mb-3">
+        <label for="password" class="form-label">Senha</label>
+        <input id="password" type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="password" required>
+      </div>
+    </div>
+        
+    
+    <div class="row">
+      <div class="col-md-3 form-group">
+        <input class="btn btn-primary w-100" type="submit" value="Atualizar">
+      </div>
+    </div>
+  </form>
+</app-content>

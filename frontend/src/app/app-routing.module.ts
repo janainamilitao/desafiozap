@@ -8,8 +8,11 @@ import { AddDocumentComponent } from './components/docs/add-doc/add-doc.componen
 import { UpdateDocumentComponent } from './components/docs/update-doc/update-doc.component';
 import { ViewCompanyComponent } from './components/companys/view-company/view-company.component';
 import { UpdateCompanyComponent } from './components/companys/update-company/update-company.component';
+import { ContentComponent } from './components/content.componet'; 
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
+
   { path: 'users', component: ViewUserComponent },
   { path: 'add-user', component: AddUserComponent },
   { path: 'update-user/:id', component: UpdateUserComponent},
@@ -22,7 +25,7 @@ const routes: Routes = [
   { path: 'add-company', component: AddDocumentComponent},
   { path: 'update-company/:id', component: UpdateCompanyComponent},
 
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', component: ContentComponent }
 ];
 
 @NgModule({
