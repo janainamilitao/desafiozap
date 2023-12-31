@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiServive } from '../../../api.service';
 import { Document } from '../../../models/document.model';
+import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-view-doc',
@@ -9,6 +10,7 @@ import { Document } from '../../../models/document.model';
 })
 export class ViewDocumentComponent {
   docs: Document[] = [];
+
   document : Document = { 
     id: 0,
     name: '',
@@ -17,8 +19,20 @@ export class ViewDocumentComponent {
     deleted: false,
     signature_deadline: new Date(),
     signed: false,
-    user_created: ''}
+    user_created: ''};
+
   path: any;
+
+  user_created: User = {
+    id: 0,
+    name: '',
+    email: '',
+    date_last_pass_reset: null,
+    verifed_email: false,
+    password : '',
+    date_updated: new Date(),
+    date_creation: new Date(), 
+  };
 
   constructor(private service: ApiServive) { }
 
@@ -51,8 +65,9 @@ export class ViewDocumentComponent {
       // A parte desejada estará em match[1] se houver uma correspondência
       const id_user = match ? match[1] : null;
 
-      this.service.getObject("users/", id_user).subscribe((data)=>{
-        this.document.user_created = data;
+      this.service.getObject("users/", id_user).subscribe((user)=>{
+        this.document.user_created = user;
+        this.user_created = user;
       });
     });
   }

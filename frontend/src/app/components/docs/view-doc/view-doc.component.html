@@ -68,7 +68,7 @@
               <p><strong>Data Atualização:</strong> {{ document.date_updated | date:'dd/MM/yyyy'}}</p>
               <p><strong>Data Limite Assinatura:</strong> {{ document.signature_deadline | date:'dd/MM/yyyy'}}</p>
               <p><strong>Assinado:</strong> {{ document.signed ? 'Sim' : 'Não'}}</p>
-              <p><strong>Usuário Criação:</strong> {{ document.user_created.name }}</p>
+              <p><strong>Usuário Criação:</strong> {{ user_created.name }}</p>
             </div>            
           </div>
           <div class="modal-footer">
