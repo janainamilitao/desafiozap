@@ -34,6 +34,12 @@ export class ViewDocumentComponent {
     );
   }
 
+  openConfirm(id: number){
+    this.service.getObject(this.path, id).subscribe((data)=>{
+      this.document = data;
+    });
+  }
+
   openPainel(id: number){
     this.service.getObject(this.path, id).subscribe((data)=>{
       this.document = data;
@@ -51,8 +57,8 @@ export class ViewDocumentComponent {
     });
   }
 
-  deleteDoc(id: number) {
-    this.service.deleteObject(this.path, id).subscribe(data => {
+  deleteDoc() {
+    this.service.deleteObject(this.path, this.document.id).subscribe(data => {
       console.log(data);
       this.ngOnInit();
     });
