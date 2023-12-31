@@ -27,8 +27,8 @@
         <div class="row">
           <div class="col-md-12 form-group mb-4">
             <label for="user_created" class="form-label">Usuário Criação</label>
-            <select id="user_created" name="user_created" [(ngModel)]="document.user_created">
-                <option *ngFor="let user of users" [value]="user">{{ user.name }}</option>
+            <select id="user_created" name="user_created" [(ngModel)]="document.user_created.id">
+                <option *ngFor="let user_created of users" [value]="user_created.id">{{ user_created.name }}</option>
             </select>
           </div>
         </div>            

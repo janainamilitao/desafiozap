@@ -8,6 +8,11 @@
         <tr>
           <th scope="col">Id</th>
           <th scope="col">Nome</th>
+          <th scope="col">Fuso Horário</th>
+          <th scope="col">Linguagem</th>
+          <th scope="col">Data Criação</th>
+          <th scope="col">Data Atualização</th>
+          <th scope="col">Usuário Criação</th>
           <th scope="col">Ações</th>
         </tr>
       </thead>
@@ -15,9 +20,14 @@
         <tr *ngFor="let company of companys">
           <th scope="row">{{company.id}}</th>
           <td>{{company.name}}</td>
+          <td>{{company.timezone}}</td>
+          <td>{{company.language}}</td>
+          <td>{{company.date_creation | date:'dd/MM/yyyy'}}</td>
+          <td>{{company.date_updated | date:'dd/MM/yyyy'}}</td>
+          <td>{{company.user_created}}</td>
           <td>
             <button class="button icon solid fa-edit" routerLink="/update-company/{{company.id}}"></button>
-            <button class="button icon solid fa-trash" (click)="deleteCompany(company.id)"></button>
+            <button class="button primary icon solid fa-trash" (click)="deleteCompany(company.id)"></button>
           </td>
         </tr>
       </tbody>

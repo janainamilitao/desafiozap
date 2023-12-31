@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiServive } from '../../../api.service';
+import { Document } from '../../../models/document.model';
 
 @Component({
   selector: 'app-view-doc',
@@ -7,7 +8,7 @@ import { ApiServive } from '../../../api.service';
   styleUrls: ['./view-doc.component.css']
 })
 export class ViewDocumentComponent {
-  docs: any | undefined;
+  docs: Document[] = [];
 
   constructor(private service: ApiServive) { 
    

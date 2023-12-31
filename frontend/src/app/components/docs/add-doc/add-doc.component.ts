@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms'; 
 import { ApiServive } from '../../../api.service';
 import { Router } from '@angular/router';
 import { Document } from '../../../models/document.model';
@@ -15,7 +16,7 @@ export class AddDocumentComponent {
   ngOnInit() {
     this.service.getObjects("users/").subscribe(
       data => {
-      this.users = data
+      this.users = data;
     })
   }
 
@@ -23,14 +24,18 @@ export class AddDocumentComponent {
   document: Document = {
     id: 0,
     name: '',
+    date_updated: new Date(),
+    date_creation: new Date(),  
     deleted: false,
     signature_deadline: new Date(),
     signed: false,
-    user_created: {id: 0, name: '', email: '', verifed_email:false, password: '' }
+    user_created: ''
   };
 
 
   constructor(private service: ApiServive, private router: Router) { }
+
+  @ViewChild('formDocument') formulario!: NgForm;
 
   addDoc(): void {
     this.service.addObject("docs/",this.document).subscribe(() => {

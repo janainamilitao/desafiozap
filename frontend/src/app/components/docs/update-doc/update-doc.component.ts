@@ -15,10 +15,12 @@ export class UpdateDocumentComponent {
   document: Document = {
     id: 0,
     name: '',
+    date_updated: new Date(),
+    date_creation: new Date(),  
     deleted: false,
     signature_deadline: new Date(),
     signed: false,
-    user_created:{ id: 0, name:'', email: '', verifed_email: false, password: ''}
+    user_created: ''
   };
 
 

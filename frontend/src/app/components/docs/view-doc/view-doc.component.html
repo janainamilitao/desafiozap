@@ -11,7 +11,7 @@
           <th scope="col">Atualização</th>
           <th scope="col">Dt. Limite assinatura</th>
           <th scope="col">Assinado</th>
-          <!-- <th scope="col">Usuário Criação</th> -->
+          <th scope="col">Usuário Criação</th>
           <th scope="col">Ações</th>
         </tr>
       </thead>
@@ -19,11 +19,11 @@
         <tr *ngFor="let doc of docs">
           <th scope="row">{{doc.id}}</th>
           <td>{{doc.name}}</td>
-          <td>{{doc.email}}</td>
           <td>{{doc.date_creation | date:'dd/MM/yyyy' }}</td>
+          <td>{{doc.date_updated | date:'dd/MM/yyyy' }}</td>
           <td>{{doc.signature_deadline | date:'dd/MM/yyyy' }}</td>
           <td>{{doc.signed ? 'Sim' : 'Não'}}</td>
-          <!-- <td>{{doc.user_created.name}}</td> -->
+          <td>{{doc.user_created}}</td> 
           <td>
             <button class="button icon solid fa-edit" routerLink="/update-doc/{{doc.id}}"></button>
             <button class="button primary icon solid fa-trash" (click)="deleteDoc(doc.id)"></button>
