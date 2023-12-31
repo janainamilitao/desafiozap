@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiServive } from '../../../api.service';
 import { Router } from '@angular/router';
 import { User } from '../../../models/user.model';
@@ -8,8 +9,8 @@ import { User } from '../../../models/user.model';
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent {
-  
+export class AddUserComponent  {
+
   user: User = {
     id: 0,
     name: '',
@@ -21,14 +22,32 @@ export class AddUserComponent {
     date_creation: new Date(), 
   };
 
-    constructor(private service: ApiServive, private router: Router) { }
+  formUser: FormGroup;
+ 
+    constructor(private service: ApiServive, private router: Router, private formBuilder: FormBuilder) { 
+      this.formUser = this.formBuilder.group({
+        name: ['', Validators.required],
+        email: ['', Validators.required],
+        verifed_email: [false],
+        password: ['', Validators.required]
+      });
+    }
+
   
 
     addUser(): void {
+      if (this.formUser.valid) {
+        this.user.name = this.formUser.get('name').value;
+        this.user.email = this.formUser.get('email').value;
+        this.user.verifed_email = this.formUser.get('verifed_email').value;
+        this.user.password = this.formUser.get('password').value;
 
-      this.service.addObject("users/",this.user).subscribe(() => {
-        this.router.navigate(['users/']);
-      });
+        this.service.addObject("users/",this.user).subscribe(() => {
+          this.router.navigate(['users/']);
+        });
+      } else{
+        console.log('Formulário inválido. Corrija os erros.');
+      }
     }
 
   }
