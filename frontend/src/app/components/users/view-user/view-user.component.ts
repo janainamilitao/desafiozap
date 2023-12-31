@@ -42,8 +42,14 @@ export class ViewUserComponent {
     });
   }
 
-  deleteUser(id: number) {
-    this.service.deleteObject(this.path,id).subscribe(data => {
+  openConfirm(id: number){
+    this.service.getObject(this.path, id).subscribe((data)=>{
+      this.user = data;
+    });
+  }
+
+  deleteUser() {
+    this.service.deleteObject(this.path, this.user.id).subscribe(data => {
       console.log(data);
       this.ngOnInit();
     });
