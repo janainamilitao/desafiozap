@@ -3,32 +3,29 @@
     <h2 class="text-center mb-3">Novo Usuário</h2>
     <br>
     <form (submit)="addUser()">
-      <!--Name-->
         <div class="col-md-12 form-group mb-3">
           <label for="name" class="form-label">Nome</label>
           <input id="name" [(ngModel)]="user.name" type="text" name="name" class="form-control" required>
         </div>
-
-      <!--Email-->
 
         <div class="col-md-12 form-group mb-3">
           <label for="email" class="form-label">Email</label>
           <input id="email" type="email"  [(ngModel)]="user.email" name="email" class="form-control"  required>
         </div>
 
-      <!--Verifed email-->
+
       <div class="col-6 col-12-small">
         <input type="checkbox" id="verifed_email" name="verifed_email" [(ngModel)]="user.verifed_email">
         <label for="verifed_email">Email verificado: </label>
       </div>
 
-      <!--Password-->
       <div class="row">
         <div class="col-md-12 form-group mb-3">
           <label for="password" class="form-label">Senha</label>
           <input id="password" type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="password" required>
         </div>
-      </div>
+      </div>      
+
 
       <br>
       <div class="col-md-12 d-flex justify-content-center">

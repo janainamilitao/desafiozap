@@ -21,6 +21,8 @@ export class UpdateUserComponent {
     date_creation: new Date(), 
   };
 
+  userOld: any;
+
 
   constructor(private service: ApiServive, private route: ActivatedRoute, private router : Router) { }
 
@@ -30,7 +32,8 @@ export class UpdateUserComponent {
 
       this.service.getObject("users/", userId).subscribe(
         (userCreated) =>{
-          this.user  = userCreated
+          this.userOld  = userCreated
+          this.user = this.userOld
         },
         (error)=>{
           console.error('Erro ao obter detalhes do usuário:', error)
@@ -40,6 +43,9 @@ export class UpdateUserComponent {
   }
 
   updateUser(): void {
+    if(this.userOld.password!=this.user.password){
+        this.user.date_last_pass_reset = new Date()
+    }
     this.service.updateObject("users/",this.user).subscribe(
       () => {
         this.router.navigate(['users/']);

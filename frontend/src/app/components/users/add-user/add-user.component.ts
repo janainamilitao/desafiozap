@@ -14,7 +14,7 @@ export class AddUserComponent {
     id: 0,
     name: '',
     email: '',
-    date_last_pass_reset: new Date(),
+    date_last_pass_reset: null,
     verifed_email: false,
     password : '',
     date_updated: new Date(),
@@ -25,8 +25,9 @@ export class AddUserComponent {
   
 
     addUser(): void {
+
       this.service.addObject("users/",this.user).subscribe(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(['users/']);
       });
     }
 
