@@ -9,13 +9,22 @@ import { Document } from '../../../models/document.model';
 })
 export class ViewDocumentComponent {
   docs: Document[] = [];
+  document : Document = { 
+    id: 0,
+    name: '',
+    date_updated: new Date(),
+    date_creation: new Date(),  
+    deleted: false,
+    signature_deadline: new Date(),
+    signed: false,
+    user_created: ''}
+  path: any;
 
-  constructor(private service: ApiServive) { 
-   
-  }
+  constructor(private service: ApiServive) { }
 
   ngOnInit(): void {
-    this.service.getObjects("docs/").subscribe(
+    this.path = 'docs/'
+    this.service.getObjects(this.path).subscribe(
       data => {
       this.docs = data
     },
@@ -25,8 +34,25 @@ export class ViewDocumentComponent {
     );
   }
 
+  openPainel(id: number){
+    this.service.getObject(this.path, id).subscribe((data)=>{
+      this.document = data;
+      const url = this.document.user_created;
+
+      // Use uma expressão regular para extrair a parte entre as duas últimas barras
+      const match = url.match(/\/([^\/]+)\/$/);
+
+      // A parte desejada estará em match[1] se houver uma correspondência
+      const id_user = match ? match[1] : null;
+
+      this.service.getObject("users/", id_user).subscribe((data)=>{
+        this.document.user_created = data;
+      });
+    });
+  }
+
   deleteDoc(id: number) {
-    this.service.deleteObject("docs/", id).subscribe(data => {
+    this.service.deleteObject(this.path, id).subscribe(data => {
       console.log(data);
       this.ngOnInit();
     });

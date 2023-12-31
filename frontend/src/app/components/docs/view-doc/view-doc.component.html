@@ -11,7 +11,7 @@
           <th scope="col">Atualização</th>
           <th scope="col">Dt. Limite assinatura</th>
           <th scope="col">Assinado</th>
-          <th scope="col">Usuário Criação</th>
+          <th scope="col">Deletado</th>
           <th scope="col">Ações</th>
         </tr>
       </thead>
@@ -23,12 +23,40 @@
           <td>{{doc.date_updated | date:'dd/MM/yyyy' }}</td>
           <td>{{doc.signature_deadline | date:'dd/MM/yyyy' }}</td>
           <td>{{doc.signed ? 'Sim' : 'Não'}}</td>
-          <td>{{doc.user_created}}</td> 
+          <td>{{doc.deleted ? 'Sim' : 'Não'}}</td> 
           <td>
             <button class="button icon solid fa-edit" routerLink="/update-doc/{{doc.id}}"></button>
+            <button type="button" class="button icon solid fa-search" data-bs-toggle="modal" data-bs-target="#viewDocument" (click)="openPainel(doc.id)"></button>
             <button class="button primary icon solid fa-trash" (click)="deleteDoc(doc.id)"></button>
           </td>
         </tr>
       </tbody>
     </table>
+
+    <!-- Painel (Modal) -->
+    <div class="modal" id="viewDocument" tabindex="-1" aria-labelledby="viewDocumentLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewDocumentLabel">Detalhes - Documento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12 form-group mb-3">
+              <p><strong>Nome:</strong> {{ document.name }}</p>
+              <p><strong>Deletado:</strong> {{ document.deleted ? 'Sim' : 'Não'}}</p>
+              <p><strong>Data Criação:</strong> {{ document.date_creation | date:'dd/MM/yyyy'}}</p>
+              <p><strong>Data Atualização:</strong> {{ document.date_updated | date:'dd/MM/yyyy'}}</p>
+              <p><strong>Data Limite Assinatura:</strong> {{ document.signature_deadline | date:'dd/MM/yyyy'}}</p>
+              <p><strong>Assinado:</strong> {{ document.signed ? 'Sim' : 'Não'}}</p>
+              <p><strong>Usuário Criação:</strong> {{ document.user_created.name }}</p>
+            </div>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="button" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </app-content>
