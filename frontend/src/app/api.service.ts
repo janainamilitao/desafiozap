@@ -12,8 +12,8 @@ export class ApiServive {
 
   constructor(private http: HttpClient) { }
 
-  addObject(path: string, user: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}${path}`, user);
+  addObject(path: string, object: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}${path}`, object);
   }
 
   getObjects(path: string): Observable<any> {
@@ -26,9 +26,9 @@ export class ApiServive {
     return this.http.get<any>(`${this.baseUrl}${path}${id}`);
   }
 
-  updateObject(path: string, user: any): Observable<any> {
-    const url = `${this.baseUrl}${path}${user.id}/`;
-    return this.http.put<any>(url, user);
+  updateObject(path: string, object: any): Observable<any> {
+    const url = `${this.baseUrl}${path}${object.id}/`;
+    return this.http.put<any>(url, object);
   }
 
   deleteObject(path: string, id: number): Observable<any> {

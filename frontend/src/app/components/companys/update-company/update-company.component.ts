@@ -17,7 +17,16 @@ export class UpdateCompanyComponent {
     associates_doc: [],
     associates_user: [],
     guests: [],
-    user_created:{ id: 0, name:'', email: '', verifed_email: false, password: '' }
+    user_created:{ 
+      id: 0,
+      name: '',
+      email: '',
+      date_last_pass_reset: new Date(),
+      verifed_email: false,
+      password : '',
+      date_updated: new Date(),
+      date_creation: new Date()
+     }
   };
 
 

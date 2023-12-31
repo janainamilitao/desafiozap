@@ -11,8 +11,8 @@
           <th scope="col" >Email</th>
           <th scope="col" >Último reset de senha</th>
           <th scope="col" >Email verificado</th>
-          <th scope="col" >Criação</th>
-          <th scope="col" >Atualização</th>
+          <th scope="col" >Dt. Criação</th>
+          <th scope="col" >Dt. Atualização</th>
           <th scope="col" >Ações</th>
         </tr>
       </thead>
@@ -27,9 +27,36 @@
           <td>{{user.date_updated | date:'dd/MM/yyyy' }}</td>
           <td>
             <button class="button icon solid fa-edit" routerLink="/update-user/{{user.id}}"></button>
+            <button type="button" class="button icon solid fa-search" data-bs-toggle="modal" data-bs-target="#viewUser" (click)="openPainel(user.id)"></button>
             <button class="button primary icon solid fa-trash" (click)="deleteUser(user.id)"></button>
           </td>
         </tr>
       </tbody>
     </table>
+
+    <!-- Painel (Modal) -->
+    <div class="modal" id="viewUser" tabindex="-1" aria-labelledby="viewUserLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewUserLabel">Detalhes - Usuário</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12 form-group mb-3">
+              <p><strong>Nome:</strong> {{ user.name }}</p>
+              <p><strong>Email:</strong> {{ user.email }}</p>
+              <p><strong>Último reset de senha:</strong> {{ user.date_last_pass_reset | date:'dd/MM/yyyy'}}</p>
+              <p><strong>Email verificado:</strong> {{ user.verifed_email ? 'Sim' : 'Não'}}</p>
+              <p><strong>Data Criação:</strong> {{ user.date_creation | date:'dd/MM/yyyy'}}</p>
+              <p><strong>Data Atualização:</strong> {{ user.date_updated | date:'dd/MM/yyyy'}}</p>
+              
+            </div>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="button" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </app-content>
