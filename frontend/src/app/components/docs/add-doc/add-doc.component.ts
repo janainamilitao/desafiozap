@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms'; 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiServive } from '../../../api.service';
 import { Router } from '@angular/router';
 import { Document } from '../../../models/document.model';
@@ -11,13 +11,28 @@ import { Document } from '../../../models/document.model';
 })
 export class AddDocumentComponent {
 
-  users: any[] = []; 
+  users: any[] = [];
+  companys: any[] = []; 
+  formDocument: FormGroup; 
+  path: any;
 
   ngOnInit() {
-    this.service.getObjects("users/").subscribe(
+    this.path = 'docs/'
+
+    this.service.getObjects("companys/").subscribe(
+      data => {
+      this.companys = data
+    },
+    error => {
+      console.log("Companhia não encontrado: "+error)
+    }
+    );
+
+    this.service.getObjects('users/').subscribe(
       data => {
       this.users = data;
-    })
+    });
+    
   }
 
   
@@ -29,18 +44,51 @@ export class AddDocumentComponent {
     deleted: false,
     signature_deadline: new Date(),
     signed: false,
-    user_created: ''
+    user_created: '',
+    associates_company: []
   };
 
 
-  constructor(private service: ApiServive, private router: Router) { }
+  constructor(private service: ApiServive, private router: Router, private formBuilder: FormBuilder) { 
+    this.formDocument = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(255)]],
+      signature_deadline: [''],
+      signed: [false],
+      user_created: ['', Validators.required],
+      associates_company: [[], Validators.required]
+    });
+  }
 
-  @ViewChild('formDocument') formulario!: NgForm;
 
   addDoc(): void {
-    this.service.addObject("docs/",this.document).subscribe(() => {
-      this.router.navigate(['docs/']);     
-    });
+    if (this.formDocument.valid) {
+      this.document.name = this.formDocument.get('name').value;
+      this.document.signature_deadline = this.formDocument.get('signature_deadline').value;
+      this.document.signed = this.formDocument.get('signed').value;
+     
+      this.setUserCreated();
+      this.setCompanys();
+      
+      this.service.addObject(this.path,this.document).subscribe(() => {
+        this.router.navigate([this.path]);     
+      });
+    }else{
+      console.log('Formulário inválido. Corrija os erros.');
+    }
+
+   
+  }
+
+  setCompanys(){
+    let list_id = this.formDocument.get('user_created').value;
+    for(let id of list_id ){
+      this.document.associates_company.push(this.service.baseUrl+'companys/'+id+'/')
+    }
+  }
+
+  setUserCreated(){
+    let user_id = this.formDocument.get('user_created').value;
+    this.document.user_created =  this.service.baseUrl+'users/'+user_id+'/'
   }
 
 }

@@ -1,5 +1,3 @@
-import { User } from "./user.model";
-
 export interface Document {
     id: number;
     name: string;
@@ -9,4 +7,5 @@ export interface Document {
     signature_deadline: Date;
     signed: boolean;
     user_created: any;
+    associates_company: any[]
 }

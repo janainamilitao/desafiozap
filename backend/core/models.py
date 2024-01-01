@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.conf import settings
+
 
 class User(models.Model):
     id = models.AutoField(primary_key=True)
@@ -30,36 +30,11 @@ class User(models.Model):
     def __str__(self) -> str:     
         return self.name
 
-class Doc(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    deleted = models.BooleanField(default=False)
-    date_creation = models.DateTimeField(default=timezone.now)
-    date_updated = models.DateTimeField(blank=True, null=True)
-    signature_deadline = models.DateTimeField()
-    signed = models.BooleanField(default=False)
-    user_created = models.ForeignKey(
-        User, 
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True)
-
-    def save(self, *args, **kwargs):
-            self.date_creation = timezone.now()
-            super().save(*args, **kwargs)
-    
-    def update_date_updated(sender, instance, **kwargs):
-         instance.date_updated = timezone.now()
-
-    def __str__(self) -> str:
-        return self.name
-    
 class Company(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     date_creation = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(blank=True, null=True)
-    associates_doc = models.ManyToManyField(Doc, 'associates_doc')
     associates_user = models.ManyToManyField(User, 'associates_user')
     guests = models.ManyToManyField(User, 'guests')
     user_created = models.ForeignKey(
@@ -96,3 +71,29 @@ class Company(models.Model):
 
     def __str__(self) -> str:
         return self.name 
+    
+class Doc(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    deleted = models.BooleanField(default=False)
+    date_creation = models.DateTimeField(default=timezone.now)
+    date_updated = models.DateTimeField(blank=True, null=True)
+    signature_deadline = models.DateTimeField()
+    signed = models.BooleanField(default=False)
+    associates_company = models.ManyToManyField(Company, related_name='docs')
+    user_created = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True)
+
+    def save(self, *args, **kwargs):
+            self.date_creation = timezone.now()
+            super().save(*args, **kwargs)
+    
+    def update_date_updated(sender, instance, **kwargs):
+         instance.date_updated = timezone.now()
+
+    def __str__(self) -> str:
+        return self.name
+    

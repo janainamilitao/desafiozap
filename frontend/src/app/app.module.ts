@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
 import { AppComponent } from './app.component';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AddUserComponent } from './components/users/add-user/add-user.component';
 import { UpdateUserComponent } from './components/users/update-user/update-user.component';
@@ -56,7 +57,8 @@ import { ContentComponent } from './components/content.componet';
     FormsModule,
     MatButtonModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -135,13 +135,14 @@ django-admin startproject front .
 O comando a seguir realiza a configuração do banco de dados no arquivo ``settings.py`` e cria a estrutura base do banco de dados:
 
 ```bash
-python manage.py migrate
+python3 manage.py makemigrations
+python3 manage.py migrate
 ```
 
 Crie o usuário administrador do Django:
 
 ```bash
-python manage.py createsuperuser
+python3 manage.py createsuperuser
 ```
 Exemplo:
 

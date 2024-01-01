@@ -20,7 +20,8 @@ export class UpdateDocumentComponent {
     deleted: false,
     signature_deadline: new Date(),
     signed: false,
-    user_created: ''
+    user_created: '',
+    associates_company: []
   };
 
 

@@ -1,25 +1,30 @@
 <app-content>
     <div class="mx-auto w-100">
       <h2 class="text-center mb-3">Adicionar Documento</h2>
-        <form (ngSubmit)="addDoc()" #formDocument="ngForm">
-          
+      <form *ngIf="formDocument" [formGroup]="formDocument" (ngSubmit)="addDoc()">          
           <div class="row">
             <div class="col-md-12 form-group mb-3">
               <label for="name" class="form-label">Nome</label>
-              <input id="name" [(ngModel)]="document.name" type="text" name="name" class="form-control" required>
+              <input id="name" formControlName="name" type="text" name="name" class="form-control" required>
+              <div class="div-erro" *ngIf="formDocument.controls['name'].touched && formDocument.controls['name'].hasError('required')">
+                Nome é obrigatório.
+              </div>  
+              <div class="div-erro" *ngIf="formDocument.get('name').hasError('maxlength')">
+                O Nome deve ter no máximo 255 caracteres.
+              </div> 
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-12 form-group mb-4">
               <label for="signature_deadline" class="form-label">Data assinatura</label>
-              <input type="date" id="signature_deadline" name="signature_deadline" [(ngModel)]="document.signature_deadline">            
+              <input type="date" id="signature_deadline" name="signature_deadline" formControlName="signature_deadline">            
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-12 form-group mb-3">
-              <input type="checkbox" id="signed" name="signed" [(ngModel)]="document.signed">
+              <input type="checkbox" id="signed" name="signed" formControlName="signed">
               <label for="signed">Assinado: </label>
             </div>
           </div>
@@ -28,14 +33,24 @@
           <div class="row">
             <div class="col-md-12 form-group mb-4">
               <label for="user_created" class="form-label">Usuário Criação</label>
-              <select id="user_created" name="user_created" [(ngModel)]="document.user_created.id">
+              <select id="user_created" name="user_created" formControlName="user_created">
                   <option *ngFor="let user_created of users" [value]="user_created.id">{{ user_created.name}}</option>
               </select>
             </div>
           </div>
 
+
+          <mat-form-field>
+            <mat-label>Seleção Múltipla</mat-label>
+            <mat-select formControlName="associates_company" multiple>
+              <mat-option *ngFor="let company of companys" [value]="company.id">
+                {{ company.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <div class="col-md-12 d-flex justify-content-center">
-            <input class="button col-md-4" type="submit" value="Salvar">
+            <input class="button col-md-4" type="submit"  [disabled]="formDocument.invalid" value="Salvar">
             <button class="button primary col-md-4" routerLink="/docs">Cancelar</button>
           </div>
           
