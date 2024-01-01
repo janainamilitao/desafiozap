@@ -41,6 +41,9 @@ export class UpdateDocumentComponent {
     this.route.params.subscribe((params) => {
     const docId = +params['id'];
 
+    this.setUser();
+    this.setCompanys();
+
       this.service.getObject(this.path,docId).subscribe(
         (docCreated) =>{
           this.document  = docCreated;
@@ -48,12 +51,9 @@ export class UpdateDocumentComponent {
           this.formDocument = this.formBuilder.group({
           name: [this.document.name, [Validators.required, Validators.maxLength(255)]],
           signed: [this.document.signed],
-          user_created: [this.setUser(), Validators.required],
-          associates_company: [this.setCompanys(), Validators.required]
+          user_created: [this.user_created, Validators.required],
+          associates_company: [this.companys, Validators.required]
           });
-        },
-        (error)=>{
-          console.error('Erro ao obter detalhes do documento', error)
         }
       );
     });
@@ -62,7 +62,7 @@ export class UpdateDocumentComponent {
   updateDoc(): void {
     if (this.formDocument.valid) {
       this.document.name = this.formDocument.get('name').value;
-      this.document.signed = this.formDocument.get('email').value;
+      this.document.signed = this.formDocument.get('signed').value;
       this.document.user_created = this.formDocument.get('user_created').value;
       this.document.associates_company = this.formDocument.get('associates_company').value;
       this.document.date_updated = new Date();
@@ -70,9 +70,6 @@ export class UpdateDocumentComponent {
       this.service.updateObject(this.path,this.document).subscribe(
         () => {
           this.router.navigate([this.path]);
-        },
-        (error) => {
-          console.error('Erro ao atualizar o usuário:', error);
         }
         );
     }

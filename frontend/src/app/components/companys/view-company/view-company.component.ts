@@ -8,13 +8,16 @@ import { ApiServive } from '../../../api.service';
 })
 export class ViewCompanyComponent {
   companys: any | undefined;
+  company : any;
+  path: any;
 
   constructor(private service: ApiServive) { 
    
   }
 
   ngOnInit(): void {
-    this.service.getObjects("companys/").subscribe(
+    this.path = 'companys/'
+    this.service.getObjects(this.path).subscribe(
       data => {
       this.companys = data
     },
@@ -24,11 +27,24 @@ export class ViewCompanyComponent {
     );
   }
 
-  deleteCompany(id: number) {
-    this.service.deleteObject("companys/", id).subscribe(data => {
-      console.log(data);
+  deleteCompany() {
+    this.service.deleteObject(this.path, this.company).subscribe(data => {
       this.ngOnInit();
     });
   }
+
+  openConfirm(id: number){
+    this.service.getObject(this.path, id).subscribe((data)=>{
+      this.company = data;
+    });
+  }
+
+  openPainel(id: number){
+    this.companys = [];
+    this.service.getObject(this.path, id).subscribe((data)=>{
+      this.company = data;
+    });
+  }
+
 
 }

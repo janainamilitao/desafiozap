@@ -12,7 +12,6 @@
           <th scope="col">Linguagem</th>
           <th scope="col">Data Criação</th>
           <th scope="col">Data Atualização</th>
-          <th scope="col">Usuário Criação</th>
           <th scope="col">Ações</th>
         </tr>
       </thead>
@@ -24,12 +23,56 @@
           <td>{{company.language}}</td>
           <td>{{company.date_creation | date:'dd/MM/yyyy'}}</td>
           <td>{{company.date_updated | date:'dd/MM/yyyy'}}</td>
-          <td>{{company.user_created}}</td>
           <td>
             <button class="button icon solid fa-edit" routerLink="/update-company/{{company.id}}"></button>
-            <button class="button primary icon solid fa-trash" (click)="deleteCompany(company.id)"></button>
+            <button type="button" class="button icon solid fa-search" data-bs-toggle="modal" data-bs-target="#viewCompany" (click)="openPainel(company.id)"></button>
+            <button type="button" class="button primary icon solid fa-trash" data-bs-toggle="modal" data-bs-target="#confirmDelete" (click)="openConfirm(company.id)"></button>
           </td>
         </tr>
       </tbody>
     </table>
+
+    <!-- Painel (Modal) -->
+    <div class="modal" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteLabel">Confirmação de Exclusão</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+              <p class="card-text">Você tem certeza de que deseja excluir este item?</p>         
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="button" data-bs-dismiss="modal" (click)="deleteCompany()">Sim</button>
+            <button type="button" class="button" data-bs-dismiss="modal">Não</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel (Modal) -->
+    <div class="modal" id="viewCompany" tabindex="-1" aria-labelledby="viewCompanyLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewCompanyLabel">Detalhes - Instituição</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12 form-group mb-3">
+              <p><strong>Nome:</strong> {{ company.name }}</p>
+              <p><strong>Fuso Horário:</strong> {{ company.timezone }}</p>
+              <p><strong>Linguagem:</strong> {{ company.language }}</p>
+              <p><strong>Data Criação:</strong> {{ company.date_creation }}</p>
+              <p><strong>Data Atualização:</strong> {{ company.date_updated }}</p>
+        
+            </div>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="button" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </app-content>
