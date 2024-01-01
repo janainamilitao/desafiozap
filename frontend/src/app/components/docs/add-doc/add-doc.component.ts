@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiServive } from '../../../api.service';
 import { Router } from '@angular/router';
@@ -18,17 +18,8 @@ export class AddDocumentComponent {
 
   ngOnInit() {
     this.path = 'docs/'
-
-    this.service.getObjects('companys/').subscribe(
-      data => {
-      this.companys = data;
-    });
-
-    this.service.getObjects('users/').subscribe(
-      data => {
-      this.users = data;
-    });
-    
+    this.setUsers();
+    this.setCompanys();    
   }
 
   
@@ -65,7 +56,7 @@ export class AddDocumentComponent {
       }
      
       this.setUserCreated();
-      this.setCompanys();
+      this.setAssociatesCompany();
       
       this.service.addObject(this.path,this.document).subscribe(() => {
         this.router.navigate([this.path]);     
@@ -77,7 +68,7 @@ export class AddDocumentComponent {
    
   }
 
-  setCompanys(){
+  setAssociatesCompany(){
     let list_id = this.formDocument.get('associates_company').value;
     list_id.forEach((id) => {
       this.document.associates_company.push(this.service.baseUrl+'companys/'+id+'/')
@@ -87,6 +78,20 @@ export class AddDocumentComponent {
   setUserCreated(){
     let user_id = this.formDocument.get('user_created').value;
     this.document.user_created =  this.service.baseUrl+'users/'+user_id+'/'
+  }
+
+  setCompanys(){
+    this.service.getObjects('companys/').subscribe(
+      data => {
+      this.companys = data;
+    });
+  }
+
+  setUsers(){
+    this.service.getObjects('users/').subscribe(
+      data => {
+      this.users = data;
+    }); 
   }
 
 }

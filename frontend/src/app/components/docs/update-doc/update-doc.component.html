@@ -1,45 +1,55 @@
 <app-content>
   <div class="mx-auto w-100">
-      <h2 class="text-center mb-3">Atualizar</h2>
-      <form  (submit)="updateDoc()" >
+    <h2 class="text-center mb-3">Atualizar Documento</h2>
+    <form *ngIf="formDocument" [formGroup]="formDocument" (ngSubmit)="updateDoc()">          
         <div class="row">
           <div class="col-md-12 form-group mb-3">
-            <label for="name" class="form-label">Nome</label>
-            <input id="name" [(ngModel)]="document.name" type="text" name="name" class="form-control" required>
+            <label for="name" class="form-label">Nome *</label>
+            <input id="name" formControlName="name" type="text" name="name" class="form-control" required>
+            <div class="div-erro" *ngIf="formDocument.controls['name'].touched && formDocument.controls['name'].hasError('required')">
+              Nome é obrigatório.
+            </div>  
+            <div class="div-erro" *ngIf="formDocument.get('name').hasError('maxlength')">
+              O Nome deve ter no máximo 255 caracteres.
+            </div> 
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-md-12 form-group mb-3">
+            <input type="checkbox" id="signed" name="signed" formControlName="signed">
+            <label for="signed">Assinar</label>
+          </div>
+        </div>
+
 
         <div class="row">
           <div class="col-md-12 form-group mb-4">
-            <label for="signature_deadline" class="form-label">Data assinatura</label>
-            <input type="date" id="signature_deadline" name="signature_deadline" [(ngModel)]="document.signature_deadline">            
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12 form-group mb-3">
-            <input type="checkbox" id="signed" name="signed" [(ngModel)]="document.signed">
-            <label for="signed">Assinado: </label>
-          </div>
-        </div>
-
-
-        <div class="row">
-          <div class="col-md-12 form-group mb-4">
-            <label for="user_created" class="form-label">Usuário Criação</label>
-            <select id="user_created" name="user_created" [(ngModel)]="document.user_created.id">
-                <option *ngFor="let user_created of users" [value]="user_created.id">{{ user_created.name }}</option>
+            <label for="user_created" class="form-label">Usuário Criação *</label>
+            <select id="user_created" name="user_created" formControlName="user_created">
+                <option *ngFor="let user_created of users" [value]="user_created.id">{{ user_created.name}}</option>
             </select>
           </div>
-        </div>            
+        </div>
 
-        
+
+        <div class="col-md-12 form-group mb-4">
+          <label for="associates_company" class="form-label">Instituições *</label>
+          <mat-form-field>
+            <!-- <mat-label>Instituições *</mat-label> -->
+            <mat-select formControlName="associates_company" multiple>
+              <mat-option *ngFor="let company of companys" [value]="company.id">
+                {{ company.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
         <div class="col-md-12 d-flex justify-content-center">
-          <button class="button col-md-4" type="submit" value="Submit">Salvar</button>
+          <input class="button col-md-4" type="submit"  [disabled]="formDocument.invalid" value="Atualizar">
           <button class="button primary col-md-4" routerLink="/docs">Cancelar</button>
         </div>
-      
-    
-      </form>
-    </div>
-  </app-content>
+        
+    </form>
+</div>
+</app-content>
