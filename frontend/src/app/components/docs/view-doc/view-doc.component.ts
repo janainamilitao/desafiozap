@@ -36,10 +36,12 @@ export class ViewDocumentComponent {
     date_creation: new Date(), 
   };
 
+  companys: any[] = [];
+
   constructor(private service: ApiServive) { }
 
   ngOnInit(): void {
-    this.path = 'docs/'
+    this.path = 'docs/';
     this.service.getObjects(this.path).subscribe(
       data => {
       this.docs = data
@@ -57,20 +59,11 @@ export class ViewDocumentComponent {
   }
 
   openPainel(id: number){
+    this.companys = [];
     this.service.getObject(this.path, id).subscribe((data)=>{
       this.document = data;
-      const url = this.document.user_created;
-
-      // Use uma expressão regular para extrair a parte entre as duas últimas barras
-      const match = url.match(/\/([^\/]+)\/$/);
-
-      // A parte desejada estará em match[1] se houver uma correspondência
-      const id_user = match ? match[1] : null;
-
-      this.service.getObject("users/", id_user).subscribe((user)=>{
-        this.document.user_created = user;
-        this.user_created = user;
-      });
+      this.setCompany();
+      this.setUser();
     });
   }
 
@@ -79,6 +72,39 @@ export class ViewDocumentComponent {
       console.log(data);
       this.ngOnInit();
     });
+  }
+
+  setUser(){
+    const url = this.document.user_created;
+
+    // Use uma expressão regular para extrair a parte entre as duas últimas barras
+    const match = url.match(/\/([^\/]+)\/$/);
+
+    // A parte desejada estará em match[1] se houver uma correspondência
+    const id_user = match ? match[1] : null;
+
+    this.service.getObject("users/", id_user).subscribe((user)=>{
+      this.document.user_created = user;
+      this.user_created = user;
+    });
+  }
+
+  setCompany(){
+    const url_list = this.document.associates_company;
+
+    url_list.forEach((url) => {
+      // Use uma expressão regular para extrair a parte entre as duas últimas barras
+      const match = url.match(/\/([^\/]+)\/$/);
+
+      // A parte desejada estará em match[1] se houver uma correspondência
+      const id_company = match ? match[1] : null;
+
+      this.service.getObject("companys/", id_company).subscribe((data)=>{
+        this.companys.push(data);
+      });
+    });
+
+    
   }
 
 }

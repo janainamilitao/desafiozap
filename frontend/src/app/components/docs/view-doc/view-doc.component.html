@@ -69,6 +69,12 @@
               <p><strong>Data Limite Assinatura:</strong> {{ document.signature_deadline | date:'dd/MM/yyyy'}}</p>
               <p><strong>Assinado:</strong> {{ document.signed ? 'Sim' : 'Não'}}</p>
               <p><strong>Usuário Criação:</strong> {{ user_created.name }}</p>
+              <p><strong>Instituições:</strong></p>
+              <ul>
+                <li *ngFor="let company of companys">
+                  {{ company.name }}
+                </li>
+              </ul>
             </div>            
           </div>
           <div class="modal-footer">
