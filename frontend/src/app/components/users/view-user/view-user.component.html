@@ -9,10 +9,8 @@
           <th scope="col" >Id</th>
           <th scope="col" >Nome</th>
           <th scope="col" >Email</th>
-          <th scope="col" >Último reset de senha</th>
           <th scope="col" >Email verificado</th>
           <th scope="col" >Dt. Criação</th>
-          <th scope="col" >Dt. Atualização</th>
           <th scope="col" >Ações</th>
         </tr>
       </thead>
@@ -21,10 +19,8 @@
           <th scope="row">{{user.id}}</th>
           <td>{{user.name}}</td>
           <td>{{user.email}}</td>
-          <td>{{user.date_last_pass_reset | date:'dd/MM/yyyy hh:mm' }}</td>
           <td>{{user.verifed_email  ? 'Sim' : 'Não'}}</td>
           <td>{{user.date_creation | date:'dd/MM/yyyy' }}</td>
-          <td>{{user.date_updated | date:'dd/MM/yyyy' }}</td>
           <td>
             <button class="button icon solid fa-edit" routerLink="/update-user/{{user.id}}"></button>
             <button type="button" class="button icon solid fa-search" data-bs-toggle="modal" data-bs-target="#viewUser" (click)="openPainel(user.id)"></button>
@@ -65,10 +61,10 @@
             <div class="col-md-12 form-group mb-3">
               <p><strong>Nome:</strong> {{ user.name }}</p>
               <p><strong>Email:</strong> {{ user.email }}</p>
-              <p><strong>Último reset de senha:</strong> {{ user.date_last_pass_reset | date:'dd/MM/yyyy'}}</p>
+              <p><strong>Último reset de senha:</strong> {{ user.date_last_pass_reset | date:'dd/MM/yyyy hh:mm'}}</p>
               <p><strong>Email verificado:</strong> {{ user.verifed_email ? 'Sim' : 'Não'}}</p>
-              <p><strong>Data Criação:</strong> {{ user.date_creation | date:'dd/MM/yyyy'}}</p>
-              <p><strong>Data Atualização:</strong> {{ user.date_updated | date:'dd/MM/yyyy'}}</p>
+              <p><strong>Data Criação:</strong> {{ user.date_creation | date:'dd/MM/yyyy hh:mm'}}</p>
+              <p><strong>Data Atualização:</strong> {{ user.date_updated | date:'dd/MM/yyyy hh:mm'}}</p>
               
             </div>            
           </div>
