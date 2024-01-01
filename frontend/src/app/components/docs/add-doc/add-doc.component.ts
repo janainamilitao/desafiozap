@@ -80,10 +80,10 @@ export class AddDocumentComponent {
   }
 
   setCompanys(){
-    let list_id = this.formDocument.get('user_created').value;
-    for(let id of list_id ){
+    let list_id = this.formDocument.get('associates_company').value;
+    list_id.forEach((id) => {
       this.document.associates_company.push(this.service.baseUrl+'companys/'+id+'/')
-    }
+    });
   }
 
   setUserCreated(){

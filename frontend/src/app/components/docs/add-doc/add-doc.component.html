@@ -40,14 +40,16 @@
           </div>
 
 
-          <mat-form-field>
-            <mat-label>Seleção Múltipla</mat-label>
-            <mat-select formControlName="associates_company" multiple>
-              <mat-option *ngFor="let company of companys" [value]="company.id">
-                {{ company.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+          <div class="col-md-12 form-group mb-4">
+            <mat-form-field>
+              <mat-label>Instituições</mat-label>
+              <mat-select formControlName="associates_company" multiple>
+                <mat-option *ngFor="let company of companys" [value]="company.id">
+                  {{ company.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
           <div class="col-md-12 d-flex justify-content-center">
             <input class="button col-md-4" type="submit"  [disabled]="formDocument.invalid" value="Salvar">
