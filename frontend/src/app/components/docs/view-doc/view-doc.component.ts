@@ -68,8 +68,8 @@ export class ViewDocumentComponent {
   }
 
   deleteDoc() {
-    this.service.deleteObject(this.path, this.document.id).subscribe(data => {
-      console.log(data);
+    this.document.deleted = true
+    this.service.updateObject(this.path, this.document).subscribe(data => {
       this.ngOnInit();
     });
   }

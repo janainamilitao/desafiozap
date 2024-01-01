@@ -16,16 +16,9 @@
           </div>
 
           <div class="row">
-            <div class="col-md-12 form-group mb-4">
-              <label for="signature_deadline" class="form-label">Data assinatura</label>
-              <input type="date" id="signature_deadline" name="signature_deadline" formControlName="signature_deadline">            
-            </div>
-          </div>
-
-          <div class="row">
             <div class="col-md-12 form-group mb-3">
               <input type="checkbox" id="signed" name="signed" formControlName="signed">
-              <label for="signed">Assinado: </label>
+              <label for="signed">Assinar</label>
             </div>
           </div>
 
@@ -37,9 +30,6 @@
                   <option *ngFor="let user_created of users" [value]="user_created.id">{{ user_created.name}}</option>
               </select>
             </div>
-            <div class="div-erro" *ngIf="formDocument.controls['user_created'].touched && formDocument.controls['user_created'].hasError('required')">
-              Usuário é obrigatório.
-            </div>  
           </div>
 
 

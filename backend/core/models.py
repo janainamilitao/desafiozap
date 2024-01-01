@@ -78,7 +78,7 @@ class Doc(models.Model):
     deleted = models.BooleanField(default=False)
     date_creation = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(blank=True, null=True)
-    signature_deadline = models.DateTimeField()
+    signature_deadline = models.DateTimeField(blank=True, null=True)
     signed = models.BooleanField(default=False)
     associates_company = models.ManyToManyField(Company, related_name='docs')
     user_created = models.ForeignKey(

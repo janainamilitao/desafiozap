@@ -19,14 +19,10 @@ export class AddDocumentComponent {
   ngOnInit() {
     this.path = 'docs/'
 
-    this.service.getObjects("companys/").subscribe(
+    this.service.getObjects('companys/').subscribe(
       data => {
-      this.companys = data
-    },
-    error => {
-      console.log("Companhia não encontrado: "+error)
-    }
-    );
+      this.companys = data;
+    });
 
     this.service.getObjects('users/').subscribe(
       data => {
@@ -52,7 +48,6 @@ export class AddDocumentComponent {
   constructor(private service: ApiServive, private router: Router, private formBuilder: FormBuilder) { 
     this.formDocument = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],
-      signature_deadline: [''],
       signed: [false],
       user_created: ['', Validators.required],
       associates_company: [[], Validators.required]
@@ -63,8 +58,11 @@ export class AddDocumentComponent {
   addDoc(): void {
     if (this.formDocument.valid) {
       this.document.name = this.formDocument.get('name').value;
-      this.document.signature_deadline = this.formDocument.get('signature_deadline').value;
       this.document.signed = this.formDocument.get('signed').value;
+
+      if(this.document.signed){
+        this.document.signature_deadline = new Date();
+      }
      
       this.setUserCreated();
       this.setCompanys();
