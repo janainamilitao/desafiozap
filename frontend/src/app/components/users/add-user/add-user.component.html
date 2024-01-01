@@ -8,7 +8,10 @@
           <input id="name" type="text" name="name" class="form-control" formControlName="name" required>  
           <div class="div-erro" *ngIf="formUser.controls['name'].touched && formUser.controls['name'].hasError('required')">
             Nome é obrigatório.
-          </div>      
+          </div>  
+          <div class="div-erro" *ngIf="formUser.get('name').hasError('maxlength')">
+            O Nome deve ter no máximo 255 caracteres.
+          </div>     
         </div>
 
         <div class="col-md-12 form-group mb-3">
@@ -16,7 +19,13 @@
           <input id="email" type="email"  name="email" class="form-control" formControlName="email" required>
           <div class="div-erro" *ngIf="formUser.controls['email'].touched && formUser.controls['email'].hasError('required')">
             Email é obrigatório.
-          </div>      
+          </div> 
+          <div class="div-erro" *ngIf="formUser.get('email').hasError('email')">
+            Por favor, insira um e-mail válido.
+          </div>
+          <div class="div-erro" *ngIf="formUser.get('email').hasError('maxlength')">
+            O Email deve ter no máximo 255 caracteres.
+          </div>          
         </div>
 
 
@@ -29,9 +38,9 @@
         <div class="col-md-12 form-group mb-3">
           <label for="password" class="form-label">Senha *</label>
           <input id="password" type="password" name="password" class="form-control" formControlName="password" required>
-          <div class="div-erro" *ngIf="formUser.controls['password'].touched && formUser.controls['password'].hasError('required')">
-            Senha é obrigatória.
-          </div>  
+          <div class="div-erro" *ngIf="formUser.get('password').hasError('minlength')">
+            A Senha deve ter no mínimo 6 caracteres.
+          </div>   
         </div>
       </div>      
 

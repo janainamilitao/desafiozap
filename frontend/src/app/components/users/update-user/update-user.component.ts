@@ -40,10 +40,10 @@ export class UpdateUserComponent implements OnInit {
         (userCreated) =>{
           this.user = userCreated;
           this.formEdit = this.formBuilder.group({
-            name: [this.user.name, Validators.required],
-            email: [this.user.email, [Validators.required, Validators.email]],
+            name: [this.user.name, [Validators.required, Validators.maxLength(255)]],
+            email: [this.user.email, [Validators.required, Validators.email, Validators.maxLength(255)]],
             verifed_email: [this.user.verifed_email],
-            password: [this.user.password, [Validators.required, Validators.required]]
+            password: [this.user.password, [Validators.required, Validators.required, Validators.minLength(6)]]
           });
         },
         (error)=>{

@@ -26,14 +26,12 @@ export class AddUserComponent  {
  
     constructor(private service: ApiServive, private router: Router, private formBuilder: FormBuilder) { 
       this.formUser = this.formBuilder.group({
-        name: ['', Validators.required],
-        email: ['', Validators.required],
+        name: ['', [Validators.required, Validators.maxLength(255)]],
+        email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
         verifed_email: [false],
-        password: ['', Validators.required]
+        password: ['', [Validators.required, Validators.minLength(6)]]
       });
-    }
-
-  
+    } 
 
     addUser(): void {
       if (this.formUser.valid) {
