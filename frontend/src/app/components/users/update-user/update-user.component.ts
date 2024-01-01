@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiServive } from '../../../api.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../models/user.model';
 
 @Component({
@@ -8,7 +9,7 @@ import { User } from '../../../models/user.model';
   templateUrl: './update-user.component.html',
   styleUrls: ['./update-user.component.css']
 })
-export class UpdateUserComponent {
+export class UpdateUserComponent implements OnInit {
 
    user: User = {
     id : 0,
@@ -21,39 +22,63 @@ export class UpdateUserComponent {
     date_creation: new Date(), 
   };
 
-  userOld: any;
+  formEdit: FormGroup;
 
-
-  constructor(private service: ApiServive, private route: ActivatedRoute, private router : Router) { }
+  path: any;
+ 
+  
+  constructor(private service: ApiServive, private route: ActivatedRoute, private router : Router, private formBuilder: FormBuilder) { 
+  }
 
   ngOnInit(): void {
+    this.path = 'users/'
+
     this.route.params.subscribe((params) => {
       const userId = +params['id'];
 
-      this.service.getObject("users/", userId).subscribe(
+      this.service.getObject(this.path, userId).subscribe(
         (userCreated) =>{
-          this.userOld  = userCreated
-          this.user = this.userOld
+          this.user = userCreated;
+          this.formEdit = this.formBuilder.group({
+            name: [this.user.name, Validators.required],
+            email: [this.user.email, [Validators.required, Validators.email]],
+            verifed_email: [this.user.verifed_email],
+            password: [this.user.password, [Validators.required, Validators.required]]
+          });
         },
         (error)=>{
           console.error('Erro ao obter detalhes do usuário:', error)
         }
       );
     });
+
+  
   }
 
   updateUser(): void {
-    if(this.userOld.password!=this.user.password){
+    if (this.formEdit.valid) {
+      if(this.user.password!=this.formEdit.get('password').value){
         this.user.date_last_pass_reset = new Date()
-    }
-    this.service.updateObject("users/",this.user).subscribe(
-      () => {
-        this.router.navigate(['users/']);
-      },
-      (error) => {
-        console.error('Erro ao atualizar o usuário:', error);
       }
+
+        this.user.name = this.formEdit.get('name').value;
+        this.user.email = this.formEdit.get('email').value;
+        this.user.verifed_email = this.formEdit.get('verifed_email').value;
+        this.user.password = this.formEdit.get('password').value;
+        this.user.date_updated = new Date();
+      
+      this.service.updateObject(this.path,this.user).subscribe(
+        () => {
+          this.router.navigate([this.path]);
+        },
+        (error) => {
+          console.error('Erro ao atualizar o usuário:', error);
+        }
       );
+    }else{
+      console.log('Formulário inválido. Corrija os erros.');
+    }
+   
   }
 
   

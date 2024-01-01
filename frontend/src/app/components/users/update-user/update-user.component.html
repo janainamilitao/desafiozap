@@ -1,42 +1,47 @@
 <app-content>
-  <h2 class="text-center">Atualizar Usuário</h2>
-  <br>
-  <form  (submit)="updateUser()" >
-    <div class="row">
-      <div class="col-md-12 form-group mb-3">
-        <label for="name" class="form-label">Nome</label>
-        <input id="name" [(ngModel)]="user.name" type="text" name="name" class="form-control" required>
-      </div>
-    </div>
-              
-    <!--Email-->
-    <div class="row">
-      <div class="col-md-12 form-group mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input id="email" type="email"  [(ngModel)]="user.email" name="email" class="form-control"  required>
-      </div>
-    </div>
+  <div class="mx-auto w-100">
+    <h2 class="text-center mb-3">Atualizar Usuário</h2>
+    <br>
+    <form *ngIf="formEdit" [formGroup]="formEdit" (ngSubmit)="updateUser()">
+        <div >
+          <label for="name" class="form-label">Nome *</label>
+          <input id="name" type="text" name="name" class="form-control" formControlName="name" required>  
+          <div class="div-erro" *ngIf="formEdit.controls['name'].touched && formEdit.controls['name'].hasError('required')">
+            Nome é obrigatório.
+          </div>      
+        </div>
 
-        <!--Verifed email-->
-    <div class="row">
-      <div class="col-md-12 form-group mb-3">
-        <input type="checkbox" id="verifed_email" name="verifed_email" [(ngModel)]="user.verifed_email">
+        <div class="col-md-12 form-group mb-3">
+          <label for="email" class="form-label">Email *</label>
+          <input id="email" type="email"  name="email" class="form-control" formControlName="email" required>
+          <div class="div-erro" *ngIf="formEdit.controls['email'].touched && formEdit.controls['email'].hasError('required')">
+            Email é obrigatório.
+          </div>      
+        </div>
+
+
+      <div class="col-6 col-12-small">
+        <input type="checkbox" id="verifed_email" name="verifed_email"  formControlName="verifed_email">
         <label for="verifed_email">Email verificado: </label>
       </div>
-    </div>
 
-    <!--Password-->
-    <div class="row">
+   
       <div class="col-md-12 form-group mb-3">
-        <label for="password" class="form-label">Senha</label>
-        <input id="password" type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="password" required>
+        <label for="password" class="form-label">Senha *</label>
+        <input id="password" type="password" name="password" class="form-control" formControlName="password" required>
+        <div class="div-erro" *ngIf="formEdit.controls['password'].touched && formEdit.controls['password'].hasError('required')">
+          Senha é obrigatória.
+        </div>  
       </div>
-    </div>
-        
-    
-    <div class="col-md-12 d-flex justify-content-center">
-      <input class="btn btn-primary col-md-4" type="submit" value="Atualizar">
-      <button class="button primary col-md-4" routerLink="/users">Cancelar</button>
-    </div>
+         
+
+
+      <br>
+      <div class="col-md-12 d-flex justify-content-center">
+        <input class="button col-md-4" type="submit" [disabled]="formEdit.invalid" value="Salvar">
+        <button class="button primary col-md-4" routerLink="/users">Cancelar</button>
+      </div>
+      
   </form>
+  </div>
 </app-content>
