@@ -7,7 +7,7 @@
       <thead>
         <tr>
           <th scope="col">Id</th>
-          <th scope="col">Nome</th>
+          <th scope="col">Nome</th> 
           <th scope="col">Fuso Horário</th>
           <th scope="col">Linguagem</th>
           <th scope="col">Data Criação</th>
@@ -61,11 +61,11 @@
           </div>
           <div class="modal-body">
             <div class="col-md-12 form-group mb-3">
-              <p><strong>Nome:</strong> {{ company.name }}</p>
-              <p><strong>Fuso Horário:</strong> {{ company.timezone }}</p>
-              <p><strong>Linguagem:</strong> {{ company.language }}</p>
-              <p><strong>Data Criação:</strong> {{ company.date_creation }}</p>
-              <p><strong>Data Atualização:</strong> {{ company.date_updated }}</p>
+              <p><strong>Nome:</strong>{{companyView.name}}</p>
+              <p><strong>Fuso Horário:</strong> {{ companyView.timezone }}</p>
+              <p><strong>Linguagem:</strong> {{ companyView.language }}</p>
+              <p><strong>Data Criação:</strong> {{ companyView.date_creation }}</p>
+              <p><strong>Data Atualização:</strong> {{ companyView.date_updated }}</p> 
         
             </div>            
           </div>

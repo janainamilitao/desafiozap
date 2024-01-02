@@ -32,8 +32,7 @@ export class ViewUserComponent {
     this.service.getObjects(this.path).subscribe(
       data => {
       this.users = data
-    }
-    );
+    });
   }
 
   openPainel(id: number){

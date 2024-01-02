@@ -33,7 +33,12 @@ export class AddCompanyComponent {
       verifed_email: false,
       password : '',
       date_updated: new Date(),
-      date_creation: new Date(),  }
+      date_creation: new Date()
+    },
+    date_updated: new Date(),
+    date_creation: new Date(),
+    language: '',
+    timezone: ''
   };
 
     constructor(private service: ApiServive, private router: Router) { }

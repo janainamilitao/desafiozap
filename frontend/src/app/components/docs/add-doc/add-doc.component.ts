@@ -18,6 +18,7 @@ export class AddDocumentComponent {
 
   ngOnInit() {
     this.path = 'docs/'
+
     this.setUsers();
     this.setCompanys();    
   }

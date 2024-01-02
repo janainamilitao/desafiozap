@@ -26,7 +26,11 @@ export class UpdateCompanyComponent {
       password : '',
       date_updated: new Date(),
       date_creation: new Date()
-     }
+     },
+     date_updated: new Date(),
+     date_creation: new Date(),
+     language: '',
+     timezone: ''
   };
 
 

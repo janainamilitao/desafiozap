@@ -15,7 +15,8 @@ export class UpdateDocumentComponent {
   companys: any[] = [];  
   formDocument: FormGroup; 
   path: any;
-  user_created: any;
+  usuario_criado : any;
+
 
 
   document: Document = {
@@ -41,21 +42,18 @@ export class UpdateDocumentComponent {
     this.route.params.subscribe((params) => {
     const docId = +params['id'];
 
-    this.setUser();
-    this.setCompanys();
-
-      this.service.getObject(this.path,docId).subscribe(
+      this.service.getObject(this.path, docId).subscribe(
         (docCreated) =>{
-          this.document  = docCreated;
-
-          this.formDocument = this.formBuilder.group({
+        this.document  = docCreated;
+        this.setUser();
+        this.setCompanys();
+        this.formDocument = this.formBuilder.group({
           name: [this.document.name, [Validators.required, Validators.maxLength(255)]],
           signed: [this.document.signed],
-          user_created: [this.user_created, Validators.required],
+          user_created: [this.document.user_created, Validators.required],
           associates_company: [this.companys, Validators.required]
           });
-        }
-      );
+        });
     });
   }
 
@@ -90,7 +88,8 @@ export class UpdateDocumentComponent {
     });
   }
 
- 
+
+  
   setUser(){
     const url = this.document.user_created;
 
@@ -102,7 +101,6 @@ export class UpdateDocumentComponent {
 
     this.service.getObject("users/", id_user).subscribe((user)=>{
       this.document.user_created = user;
-      this.user_created = user;
     });
   }
 

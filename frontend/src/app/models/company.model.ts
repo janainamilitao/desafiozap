@@ -7,4 +7,8 @@ export interface Company {
     associates_user: User[];
     guests: User[];
     user_created: User;
+    date_creation: Date;
+    date_updated: Date;
+    language: string;
+    timezone: string;
 }
