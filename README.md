@@ -6,17 +6,19 @@
 - [Especificação](#especificação)
 - [Diagrama de classes](#diagrama-de-classes)
 - [Configuração do ambiente de desenvolvimento](#configuração-do-ambiente-de-desenvolvimento)
+  - [Banco de dados (PostgreSQL)](#banco-de-dados-postgresql)
   - [Backend](#backend)
   - [Frontend](#frontend)
 - [Conceitos](#conceitos)
   - [Django](#django)
   - [Angular](#angular)
 - [Referências](#referências)
+  - [Docker e DockerCompose](#docker-e-dockercompose)
+    - [Compilando as imagens Docker do desafio](#compilando-as-imagens-docker-do-desafio)
 - [Desenvolvedora](#desenvolvedora)
 - [Licença de uso](#licença-de-uso)
  
 <!-- TOC -->
-
 
 # Especificação
 
@@ -91,12 +93,30 @@ Tudo deve ser escrito com testes automatizados.<br>
 
 # Configuração do ambiente de desenvolvimento
 
+## Banco de dados (PostgreSQL)
+
+No Ubuntu 22.04 64 bits, instale o PostgreSQL 14 com o seguinte comando:
+
+```bash
+sudo apt install postgresql postgresql-contrib -y
+```
+
+> Por padrão, a aplicação fará uso do usuário ``postgres`` com a senha ``postgres``, no endereço ``localhost`` na porta ``5432``. Essas e outras configurações podem ser alterados no arquivo [backend/front/settings.py](backend/front/settings.py), mais especificamente na constante ``DATABASES``.
+
+Crie o banco de dados ``djangodb``.
+
+```bash
+sudo -u postgres createdb djangodb
+```
+
 ## Backend
 
-No Ubuntu 22.04 64 bits, instalação o Python 3.11 com o seguinte comando:
+No Ubuntu 22.04 64 bits, instale o Python 3.11 com os seguintes comandos:
 
 ```bash
 sudo apt install python3.11 -y
+sudo ln -s /usr/bin/python3 /usr/bin/python
+sudo ln -s /usr/bin/python3 /usr/bin/python3
 ```
 
 Instale o ``venv``, para ser usado na criação de ambientes virtuais com o Python. Execute o seguinte comando:
@@ -105,7 +125,7 @@ Instale o ``venv``, para ser usado na criação de ambientes virtuais com o Pyth
 sudo apt install python3-venv -y
 ```
 
-Crie um ambiente virtual no projeto com os seguintes comandos
+Crie um ambiente virtual no projeto com os seguintes comandos:
 
 ```bash
 mkdir -p desafiozap/venv
@@ -120,10 +140,14 @@ cd desafiozap/
 source venv/bin/activate
 ```
 
-Instale o Django dentro do ambiente virtual, com o seguinte comando:
+Instale o Django dentro do ambiente virtual, com os seguintes comandos:
 
 ```bash
 pip install django
+pip install djangorestframework
+pip install django-cors-headers
+pip install psycopg2
+pip install psycopg2-binary
 ```
 
 Crie os arquivos de configuração do Django.
@@ -187,6 +211,8 @@ cd frontend
 ng serve
 ```
 
+O frontend ficará acessível em: http://127.0.0.1:4200
+
 # Conceitos
 
 ## Django
@@ -210,19 +236,93 @@ Ele se baseia em TypeScript, uma linguagem superset do JavaScript, e utiliza uma
 * **Curso Udemy**: https://www.udemy.com/course/aplicacao-web-django-angular-framework/
 * Django request workflow: https://nthb.github.io/django/
 * Django resquest framework: https://www.django-rest-framework.org/tutorial/quickstart/ 
+* PostgreSQL: https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart
 
 **Links de apoio:**
 
-https://github.com/charan-sai-v/django_angular_crud_operations_with_postgresql/tree/main/frontend/src/app
+* https://github.com/charan-sai-v/django_angular_crud_operations_with_postgresql/tree/main/frontend/src/app
+* https://github.com/adamchainz/django-cors-headers
+* https://material.angular.io/guide/getting-started
+* https://github.com/Gpzim98/
+* https://www.udemy.com/course/aplicacao-web-django-angular-framework/l
 
+## Docker e DockerCompose
 
-https://github.com/adamchainz/django-cors-headers
+Instale o Docker no Ubuntu 22.04 64 bits com as instruções da seguinte página:  https://docs.docker.com/engine/install/ubuntu/
 
-https://material.angular.io/guide/getting-started
+Inicie o serviço Docker com os seguintes comandos: 
 
-https://github.com/Gpzim98/
+```bash
+# Start the Docker service
+sudo systemctl start docker
 
-https://www.udemy.com/course/aplicacao-web-django-angular-framework/l
+# Configure Docker to boot up with the OS
+sudo systemctl enable docker
+
+# Add your user to the Docker group
+sudo usermod -aG docker $USER
+sudo setfacl -m user:$USER:rw /var/run/docker.sock
+```
+
+Instale o Docker Compose com os seguintes comandos: 
+
+```bash
+sudo su
+
+COMPOSE_VERSION=1.29.2
+
+sudo curl -L "https://github.com/docker/compose/releases/download/$COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+chmod +x /usr/local/bin/docker-compose
+
+/usr/local/bin/docker-compose version
+
+exit
+```
+
+Execute os containers Docker do desafio com os seguintes comandos:
+
+```bash
+cd desafiozap
+
+docker-compose up
+```
+
+O backend (Django) ficará acessível em: http://127.0.0.1:8000/admin
+* Usuário: **admin**
+* Senha: **admin**
+
+O frontend ficará acessível em: http://127.0.0.1:4200
+
+Pare os containers Docker do desafio com os seguintes comandos:
+
+```bash
+cd desafiozap
+
+docker-compose down
+```
+
+### Compilando as imagens Docker do desafio
+
+Compile a imagem Docker do backend com o seguinte comando:
+
+```bash
+VERSION='1.0.0'
+
+cd desafiozap
+
+docker image build -t jmilitao/desafiozap_backend:$VERSION -f Dockerfile_backend .
+```
+
+Compile a imagem Docker do frontend com o seguinte comando:
+
+```bash
+VERSION='1.0.0'
+
+cd desafiozap
+
+docker image build -t jmilitao/desafiozap_frontend:$VERSION -f Dockerfile_frontend .
+```
 
 # Desenvolvedora
 
@@ -230,4 +330,4 @@ Janaina Militão do Nascimento
 
 # Licença de uso
 
-[GPLv3.0 2023](LICENSE)
+[GPLv3.0 2024](LICENSE)
