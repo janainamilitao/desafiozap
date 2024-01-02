@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiServive } from '../../../api.service';
 import { Document } from '../../../models/document.model';
+import { Company } from '../../../models/company.model';
 
 @Component({
   selector: 'app-update-doc',
@@ -16,7 +17,18 @@ export class UpdateDocumentComponent {
   formDocument: FormGroup; 
   path: any;
   usuario_criado : any;
-  associate_company: any;
+
+  ass_company:  Company = {
+    id: 0,
+    name: '',
+    associates_doc: [],
+    guests: [],
+    user_created: '',
+    date_updated: new Date(),
+    date_creation: new Date(),
+    language: '',
+    timezone: ''
+  };
 
 
   document: Document = {
@@ -52,7 +64,7 @@ export class UpdateDocumentComponent {
           name: [this.document.name, [Validators.required, Validators.maxLength(255)]],
           signed: [this.document.signed],
           user_created: [this.document.user_created, Validators.required],
-          associates_company: [this.companys, Validators.required]
+          associate_company: [this.document.associate_company, Validators.required]
           });
         });       
     });
@@ -115,8 +127,8 @@ export class UpdateDocumentComponent {
     const id_company = match ? match[1] : null;
 
     this.service.getObject("companys/", id_company).subscribe((company)=>{
-      this.document.associate_company = company;
-      this.associate_company = company;
+      //this.document.associate_company = company;
+     return company;
     });
   
   }
