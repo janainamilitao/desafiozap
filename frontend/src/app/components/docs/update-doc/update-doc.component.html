@@ -32,17 +32,13 @@
           </div>
         </div>
 
-
-        <div class="col-md-12 form-group mb-4">
-          <label for="associates_company" class="form-label">Instituições *</label>
-          <mat-form-field>
-            <!-- <mat-label>Instituições *</mat-label> -->
-            <mat-select formControlName="associates_company" multiple>
-              <mat-option *ngFor="let company of companys" [value]="company.id">
-                {{ company.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <div class="row">
+          <div class="col-md-12 form-group mb-4">
+            <label for="associate_company" class="form-label">Instituição *</label>
+            <select id="associate_company" name="associate_company" formControlName="associate_company">
+                <option *ngFor="let associate_company of companys" [value]="associate_company.id">{{ associate_company.name}}</option>
+            </select>
+          </div>
         </div>
 
         <div class="col-md-12 d-flex justify-content-center">
