@@ -17,7 +17,7 @@
 
           <div class="row">
             <div class="col-md-12 form-group mb-3">
-              <input type="checkbox" id="signed" name="signed" formControlName="signed">
+              <input type="checkbox" id="signed" name="signed" formControlName="signed" >
               <label for="signed">Assinar</label>
             </div>
           </div>
@@ -34,15 +34,10 @@
 
 
           <div class="col-md-12 form-group mb-4">
-            <label for="associates_company" class="form-label">Instituições *</label>
-            <mat-form-field>
-              <!-- <mat-label>Instituições *</mat-label> -->
-              <mat-select formControlName="associates_company" multiple>
-                <mat-option *ngFor="let company of companys" [value]="company.id">
-                  {{ company.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <label for="associate_company" class="form-label">Instituição *</label>
+            <select id="associate_company" name="associate_company" formControlName="associate_company">
+              <option *ngFor="let company of companys" [value]="company.id">{{ company.name}}</option>
+            </select>
           </div>
 
           <div class="col-md-12 d-flex justify-content-center">

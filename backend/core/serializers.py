@@ -5,12 +5,12 @@ from .models import Company, Doc, User
 class CompanySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Company
-        fields = ['id','name', 'timezone', 'language', 'date_creation', 'date_updated', 'user_created', 'associates_user', 'guests']
+        fields = ['id','name', 'timezone', 'language', 'date_creation', 'date_updated', 'user_created', 'guests']
 
 class DocSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Doc
-        fields = ['id', 'name', 'deleted', 'signature_deadline', 'signed', 'date_creation', 'date_updated', 'associates_company', 'user_created']
+        fields = ['id', 'name', 'deleted', 'signature_deadline', 'signed', 'date_creation', 'date_updated', 'associate_company', 'user_created']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

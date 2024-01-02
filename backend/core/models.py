@@ -29,13 +29,13 @@ class User(models.Model):
 
     def __str__(self) -> str:     
         return self.name
+    
 
 class Company(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     date_creation = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(blank=True, null=True)
-    associates_user = models.ManyToManyField(User, related_name='docs')
     guests = models.ManyToManyField(User, 'guests')
     user_created = models.ForeignKey(
         User, 
@@ -80,7 +80,11 @@ class Doc(models.Model):
     date_updated = models.DateTimeField(blank=True, null=True)
     signature_deadline = models.DateTimeField(blank=True, null=True)
     signed = models.BooleanField(default=False)
-    associates_company = models.ManyToManyField(Company, related_name='docs')
+    associate_company =  models.ForeignKey(
+        Company, 
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True)
     user_created = models.ForeignKey(
         User, 
         on_delete=models.CASCADE,

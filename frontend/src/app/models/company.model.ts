@@ -3,10 +3,9 @@ import { User } from "./user.model";
 export interface Company {
     id: number;
     name: string;
-    associates_doc: Document[];
-    associates_user: User[];
-    guests: User[];
-    user_created: User;
+    associates_doc: any[];
+    guests: any[];
+    user_created: any;
     date_creation: Date;
     date_updated: Date;
     language: string;

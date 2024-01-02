@@ -16,7 +16,7 @@ export class UpdateDocumentComponent {
   formDocument: FormGroup; 
   path: any;
   usuario_criado : any;
-
+  associate_company: any;
 
 
   document: Document = {
@@ -28,7 +28,7 @@ export class UpdateDocumentComponent {
     signature_deadline: new Date(),
     signed: false,
     user_created: '',
-    associates_company: []
+    associate_company: ''
   };
 
 
@@ -46,14 +46,15 @@ export class UpdateDocumentComponent {
         (docCreated) =>{
         this.document  = docCreated;
         this.setUser();
-        this.setCompanys();
+        this.setAssociateCompany();
+        
         this.formDocument = this.formBuilder.group({
           name: [this.document.name, [Validators.required, Validators.maxLength(255)]],
           signed: [this.document.signed],
           user_created: [this.document.user_created, Validators.required],
           associates_company: [this.companys, Validators.required]
           });
-        });
+        });       
     });
   }
 
@@ -62,7 +63,7 @@ export class UpdateDocumentComponent {
       this.document.name = this.formDocument.get('name').value;
       this.document.signed = this.formDocument.get('signed').value;
       this.document.user_created = this.formDocument.get('user_created').value;
-      this.document.associates_company = this.formDocument.get('associates_company').value;
+      this.document.associate_company = this.formDocument.get('associate_company').value;
       this.document.date_updated = new Date();
 
       this.service.updateObject(this.path,this.document).subscribe(
@@ -104,21 +105,20 @@ export class UpdateDocumentComponent {
     });
   }
 
-  setCompanys(){
-    const url_list = this.document.associates_company;
+  setAssociateCompany(){
+    const url = this.document.associate_company;
 
-    url_list.forEach((url) => {
-      // Use uma expressão regular para extrair a parte entre as duas últimas barras
-      const match = url.match(/\/([^\/]+)\/$/);
+    // Use uma expressão regular para extrair a parte entre as duas últimas barras
+    const match = url.match(/\/([^\/]+)\/$/);
 
-      // A parte desejada estará em match[1] se houver uma correspondência
-      const id_company = match ? match[1] : null;
+    // A parte desejada estará em match[1] se houver uma correspondência
+    const id_company = match ? match[1] : null;
 
-      this.service.getObject("companys/", id_company).subscribe((data)=>{
-        this.companys.push(data);
-      });
+    this.service.getObject("companys/", id_company).subscribe((company)=>{
+      this.document.associate_company = company;
+      this.associate_company = company;
     });
-
+  
   }
 
   

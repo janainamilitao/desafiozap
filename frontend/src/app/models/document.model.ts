@@ -7,5 +7,5 @@ export interface Document {
     signature_deadline: Date;
     signed: boolean;
     user_created: any;
-    associates_company: any[]
+    associate_company: any;
 }

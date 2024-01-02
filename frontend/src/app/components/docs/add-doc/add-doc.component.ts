@@ -33,7 +33,7 @@ export class AddDocumentComponent {
     signature_deadline: new Date(),
     signed: false,
     user_created: '',
-    associates_company: []
+    associate_company: []
   };
 
 
@@ -42,7 +42,7 @@ export class AddDocumentComponent {
       name: ['', [Validators.required, Validators.maxLength(255)]],
       signed: [false],
       user_created: ['', Validators.required],
-      associates_company: [[], Validators.required]
+      associate_company: [[], Validators.required]
     });
   }
 
@@ -51,15 +51,16 @@ export class AddDocumentComponent {
     if (this.formDocument.valid) {
       this.document.name = this.formDocument.get('name').value;
       this.document.signed = this.formDocument.get('signed').value;
+      this.document.associate_company = this.formDocument.get('associate_company').value;
+      this.setUserCreated();
+      this.setAssociateCompany();
 
       if(this.document.signed){
         this.document.signature_deadline = new Date();
       }
-     
-      this.setUserCreated();
-      this.setAssociatesCompany();
-      
+
       this.service.addObject(this.path,this.document).subscribe(() => {
+       
         this.router.navigate([this.path]);     
       });
     }else{
@@ -69,16 +70,14 @@ export class AddDocumentComponent {
    
   }
 
-  setAssociatesCompany(){
-    let list_id = this.formDocument.get('associates_company').value;
-    list_id.forEach((id) => {
-      this.document.associates_company.push(this.service.baseUrl+'companys/'+id+'/')
-    });
-  }
-
   setUserCreated(){
     let user_id = this.formDocument.get('user_created').value;
     this.document.user_created =  this.service.baseUrl+'users/'+user_id+'/'
+  }
+
+  setAssociateCompany(){
+    let company_id = this.formDocument.get('associate_company').value;
+    this.document.associate_company =  this.service.baseUrl+'companys/'+company_id+'/'
   }
 
   setCompanys(){

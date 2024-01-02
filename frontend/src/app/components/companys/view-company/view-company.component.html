@@ -66,7 +66,14 @@
               <p><strong>Linguagem:</strong> {{ companyView.language }}</p>
               <p><strong>Data Criação:</strong> {{ companyView.date_creation }}</p>
               <p><strong>Data Atualização:</strong> {{ companyView.date_updated }}</p> 
-        
+              <p><strong>Usuário Criação:</strong> {{ user_created.name }}</p>
+              <p><strong>Usuários convidados:</strong></p>
+              <ul>
+                <li *ngFor="let guest of guests">
+                  {{ guest.name }}
+                </li>
+              </ul>
+              <p><strong>Documentos Associados:</strong></p>    
             </div>            
           </div>
           <div class="modal-footer">

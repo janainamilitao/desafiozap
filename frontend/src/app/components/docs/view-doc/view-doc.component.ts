@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ApiServive } from '../../../api.service';
 import { Document } from '../../../models/document.model';
 import { User } from '../../../models/user.model';
+import { Company } from '../../../models/company.model';
 
 @Component({
   selector: 'app-view-doc',
@@ -10,6 +11,18 @@ import { User } from '../../../models/user.model';
 })
 export class ViewDocumentComponent {
   docs: Document[] = [];
+  associate_company: Company = {
+    id: 0,
+    name: '',
+    associates_doc: [],
+    guests: [],
+    user_created:'',
+    date_updated: new Date(),
+    date_creation: new Date(),
+    language: '',
+    timezone: ''
+  };
+  guests: User[] = [];
 
   document : Document = { 
     id: 0,
@@ -20,7 +33,7 @@ export class ViewDocumentComponent {
     signature_deadline: new Date(),
     signed: false,
     user_created: '',
-    associates_company: []
+    associate_company: ''
   };
 
   path: any;
@@ -35,8 +48,6 @@ export class ViewDocumentComponent {
     date_updated: new Date(),
     date_creation: new Date(), 
   };
-
-  companys: any[] = [];
 
   constructor(private service: ApiServive) { }
 
@@ -59,11 +70,11 @@ export class ViewDocumentComponent {
   }
 
   openPainel(id: number){
-    this.companys = [];
+  
     this.service.getObject(this.path, id).subscribe((data)=>{
       this.document = data;
-      this.setCompany();
       this.setUser();
+      this.setAssociateCompany();
     });
   }
 
@@ -89,22 +100,21 @@ export class ViewDocumentComponent {
     });
   }
 
-  setCompany(){
-    const url_list = this.document.associates_company;
 
-    url_list.forEach((url) => {
-      // Use uma expressão regular para extrair a parte entre as duas últimas barras
-      const match = url.match(/\/([^\/]+)\/$/);
+  setAssociateCompany(){
+    const url = this.document.associate_company;
 
-      // A parte desejada estará em match[1] se houver uma correspondência
-      const id_company = match ? match[1] : null;
+    // Use uma expressão regular para extrair a parte entre as duas últimas barras
+    const match = url.match(/\/([^\/]+)\/$/);
 
-      this.service.getObject("companys/", id_company).subscribe((data)=>{
-        this.companys.push(data);
-      });
+    // A parte desejada estará em match[1] se houver uma correspondência
+    const id_company = match ? match[1] : null;
+
+    this.service.getObject("companys/", id_company).subscribe((company)=>{
+      this.document.associate_company = company;
+      this.associate_company = company;
     });
-
-    
+  
   }
 
 }
