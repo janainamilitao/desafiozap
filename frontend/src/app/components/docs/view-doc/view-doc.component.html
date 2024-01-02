@@ -1,0 +1,82 @@
+<app-content>
+  <h1 class="text-center">Documentos</h1>
+  <br>
+  <button class="button" routerLink="/add-doc">Adicionar</button>
+  <table class="mat-elevation-z8" style="margin-top: 15px;">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Criação </th>
+          <th scope="col">Atualização</th>
+          <th scope="col">Dt. Limite assinatura</th>
+          <th scope="col">Assinado</th>
+          <th scope="col">Deletado</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doc of docs">
+          <th scope="row">{{doc.id}}</th>
+          <td>{{doc.name}}</td>
+          <td>{{doc.date_creation | date:'dd/MM/yyyy hh:mm' }}</td>
+          <td>{{doc.date_updated | date:'dd/MM/yyyy hh:mm' }}</td>
+          <td>{{doc.signature_deadline | date:'dd/MM/yyyy hh:mm' }}</td>
+          <td>{{doc.signed ? 'Sim' : 'Não'}}</td>
+          <td>{{doc.deleted ? 'Sim' : 'Não'}}</td> 
+          <td>
+            <button [disabled]="doc.deleted" class="button icon solid fa-edit" routerLink="/update-doc/{{doc.id}}"></button>
+            <button type="button" class="button icon solid fa-search" data-bs-toggle="modal" data-bs-target="#viewDocument" (click)="openPainel(doc.id)"></button>
+            <button [disabled]="doc.deleted" type="button" class="button primary icon solid fa-trash" data-bs-toggle="modal" data-bs-target="#confirmDelete" (click)="openConfirm(doc.id)"></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Painel (Modal) -->
+    <div class="modal" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteLabel">Confirmação de Cancelamento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+              <p class="card-text">Você tem certeza de que deseja cancelar este item?</p>         
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="button" data-bs-dismiss="modal" (click)="deleteDoc()">Sim</button>
+            <button type="button" class="button" data-bs-dismiss="modal">Não</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel (Modal) -->
+    <div class="modal" id="viewDocument" tabindex="-1" aria-labelledby="viewDocumentLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewDocumentLabel">Detalhes - Documento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12 form-group mb-3">
+              <p><strong>Nome:</strong> {{ document.name }}</p>
+              <p><strong>Cancelado:</strong> {{ document.deleted ? 'Sim' : 'Não'}}</p>
+              <p><strong>Data Criação:</strong> {{ document.date_creation | date:'dd/MM/yyyy hh:mm'}}</p>
+              <p><strong>Data Atualização:</strong> {{ document.date_updated | date:'dd/MM/yyyy hh:mm'}}</p>
+              <p><strong>Data Limite Assinatura:</strong> {{ document.signature_deadline | date:'dd/MM/yyyy hh:mm'}}</p>
+              <p><strong>Assinado:</strong> {{ document.signed ? 'Sim' : 'Não'}}</p>
+              <p><strong>Usuário Criação:</strong> {{ user_created.name }}</p>
+              <p><strong>Instituição: </strong>{{associate_company.name}}</p>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="button" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</app-content>

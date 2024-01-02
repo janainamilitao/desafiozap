@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+</head>
+<body>
+    <div class="my-5">
+        <div class="mx-auto w-100 " style="max-width:100%;">
+          <h2 class="text-center mb-3">Adicionar Instituição</h2>
+
+          <form *ngIf="formCompany" [formGroup]="formCompany" (ngSubmit)="addCompany()">          
+            <div class="row">
+              <div class="col-md-12 form-group mb-3">
+                <label for="name" class="form-label">Nome *</label>
+                <input id="name" formControlName="name" type="text" name="name" class="form-control" required>
+                <div class="div-erro" *ngIf="formCompany.controls['name'].touched && formCompany.controls['name'].hasError('required')">
+                  Nome é obrigatório.
+                </div>  
+                <div class="div-erro" *ngIf="formCompany.get('name').hasError('maxlength')">
+                  O Nome deve ter no máximo 255 caracteres.
+                </div> 
+              </div>
+            </div>
+  
+  
+            <div class="row">
+              <div class="col-md-12 form-group mb-4">
+                <label for="user_created" class="form-label">Usuário Criação *</label>
+                <select id="user_created" name="user_created" formControlName="user_created">
+                    <option *ngFor="let user_created of users" [value]="user_created.id">{{ user_created.name}}</option>
+                </select>
+              </div>
+            </div>  
+
+            
+            <div class="col-md-12 d-flex justify-content-center">
+              <input class="button col-md-4" type="submit" value="Salvar">
+              <button class="button primary col-md-4" routerLink="/companys">Cancelar</button>
+            </div>
+            
+        </form>
+      </div>
+    </div>
+
+</body>
+</html>
