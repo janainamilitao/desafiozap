@@ -1,0 +1,32 @@
+FROM ubuntu:22.04
+
+LABEL maintainer="Janaina Militao" \
+      date_create="02/01/2024" \
+      version="1.0.0" \
+      description="My Docker image of backend to DesafioZap" \
+      licensce="GPLv3"
+
+USER root
+
+WORKDIR /home/desafiozap
+
+COPY backend /home/desafiozap/backend
+COPY venv /home/desafiozap/venv
+COPY scripts /home/desafiozap/scripts
+
+RUN apt-get update \
+    # Install packages
+    && apt-get install -y python3.11 python3-venv \
+    && ln -s /usr/bin/python3 /usr/bin/python \
+    # Clean packages
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    # Set permition of execution
+    && chmod -R +x /home/desafiozap/scripts \
+    # Substitute files of container only
+    && cp /home/desafiozap/scripts/settings.py /home/desafiozap/backend/front/settings.py \
+    && cp /home/desafiozap/scripts/bin/* /home/desafiozap/venv/bin/
+
+EXPOSE 8000
+
+ENTRYPOINT ["bash", "/home/desafiozap/scripts/start_docker_backend.sh"]

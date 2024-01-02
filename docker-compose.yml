@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  backend:
+    container_name: backend
+    image: jmilitao/desafiozap_backend:1.0.0
+    ports:
+      - "8000:8000"
+    depends_on:
+      - "db"
+    restart: always
+  frontend:
+    container_name: frontend
+    image: jmilitao/desafiozap_frontend:1.0.0
+    ports:
+      - "4200:4200"
+    depends_on:
+      - "backend"
+    restart: always
+  db:
+    container_name: db
+    image: postgres:14
+    # New sintax for declare ports for docker-compose 3.2 or major
+    # https://docs.docker.com/compose/compose-file/#ports
+    ports:
+      - target: 5432    # container
+        published: 5432 # host
+        protocol: tcp
+        mode: bridge
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=djangodb

@@ -1,0 +1,22 @@
+FROM node:21
+
+LABEL maintainer="Janaina Militao" \
+      date_create="02/01/2024" \
+      version="1.0.0" \
+      description="My Docker image of frontend to DesafioZap" \
+      licensce="GPLv3"
+
+WORKDIR /home/desafiozap/frontend
+
+COPY frontend /home/desafiozap/frontend
+COPY venv /home/desafiozap/venv
+COPY template /home/desafiozap/template
+COPY scripts /home/desafiozap/scripts
+
+RUN npm install \
+    && npm install -g @angular/cli
+
+EXPOSE 4200
+
+# start app
+CMD ng serve --host 0.0.0.0
