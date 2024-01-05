@@ -16,7 +16,8 @@ COPY scripts /home/desafiozap/scripts
 RUN npm install \
     && npm install -g @angular/cli
 
+# Exposing port of application
 EXPOSE 4200
 
-# start app
-CMD ng serve --host 0.0.0.0
+# Starting application
+CMD [ "ng", "serve", "--host=0.0.0.0" ]

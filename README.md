@@ -146,8 +146,9 @@ Instale o Django dentro do ambiente virtual, com os seguintes comandos:
 pip install django
 pip install djangorestframework
 pip install django-cors-headers
-pip install psycopg2
-pip install psycopg2-binary
+pip install psycopg
+export PYTHONDONTWRITEBYTECODE=1
+export PYTHONUNBUFFERED=1
 ```
 
 Crie os arquivos de configuração do Django.
@@ -307,7 +308,7 @@ docker-compose down
 Compile a imagem Docker do backend com o seguinte comando:
 
 ```bash
-VERSION='1.0.0'
+VERSION='2.0.0'
 
 cd desafiozap
 
@@ -317,7 +318,7 @@ docker image build -t jmilitao/desafiozap_backend:$VERSION -f Dockerfile_backend
 Compile a imagem Docker do frontend com o seguinte comando:
 
 ```bash
-VERSION='1.0.0'
+VERSION='2.0.0'
 
 cd desafiozap
 

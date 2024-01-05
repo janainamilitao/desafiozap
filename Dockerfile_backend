@@ -8,6 +8,10 @@ LABEL maintainer="Janaina Militao" \
 
 USER root
 
+# Configurar variáveis de ambiente
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 WORKDIR /home/desafiozap
 
 COPY backend /home/desafiozap/backend
@@ -16,7 +20,7 @@ COPY scripts /home/desafiozap/scripts
 
 RUN apt-get update \
     # Install packages
-    && apt-get install -y python3.11 python3-venv \
+    && apt-get install -y libpq-dev python3.11 python3-venv \
     && ln -s /usr/bin/python3 /usr/bin/python \
     # Clean packages
     && apt-get clean \
@@ -27,6 +31,8 @@ RUN apt-get update \
     && cp /home/desafiozap/scripts/settings.py /home/desafiozap/backend/front/settings.py \
     && cp /home/desafiozap/scripts/bin/* /home/desafiozap/venv/bin/
 
+# Exposing port of application
 EXPOSE 8000
 
-ENTRYPOINT ["bash", "/home/desafiozap/scripts/start_docker_backend.sh"]
+# Starting application
+CMD [ "/bin/bash", "/home/desafiozap/scripts/start_docker_backend.sh" ]
