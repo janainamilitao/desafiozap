@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiServive } from '../../../api.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Document } from '../../../models/document.model';
 
 @Component({
@@ -37,7 +37,7 @@ export class AddDocumentComponent {
   };
 
 
-  constructor(private service: ApiServive, private router: Router, private formBuilder: FormBuilder) { 
+  constructor(private service: ApiServive, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) { 
     this.formDocument = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],
       signed: [false],
@@ -67,7 +67,6 @@ export class AddDocumentComponent {
       console.log('Formulário inválido. Corrija os erros.');
     }
 
-   
   }
 
   setUserCreated(){

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiServive } from '../../../api.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Company } from '../../../models/company.model';
 
 @Component({
@@ -13,13 +13,36 @@ export class AddCompanyComponent {
 
   users: any[] = []; 
   formCompany: FormGroup; 
+  path: any;
 
 
-  ngOnInit() {
-    this.service.getObjects("users/").subscribe(
-      data => {
-      this.users = data
-    })
+  constructor(private service: ApiServive, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) {
+    this.formCompany = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(255)]],
+      guests: [],
+      user_created: ['', Validators.required],
+      language: [ 'pt', Validators.required],
+      timezone: [ '-03:00', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    this.path = 'companys/';
+    this.initUsers();
+    
+    this.route.params.subscribe((params) => {
+    const companyId = +params['id'];
+
+      this.service.getObject(this.path, companyId).subscribe(
+        (companyCreated) =>{
+        this.company  = companyCreated;
+        this.setUser();
+          
+        this.formCompany = this.formBuilder.group({
+          name: [this.company.name, [Validators.required, Validators.maxLength(255)]]
+          });
+        });       
+    });
   }
   
   company: Company = {
@@ -34,15 +57,7 @@ export class AddCompanyComponent {
     timezone: ''
   };
 
-    constructor(private service: ApiServive, private router: Router, private formBuilder: FormBuilder) {
-      this.formCompany = this.formBuilder.group({
-        name: ['', [Validators.required, Validators.maxLength(255)]],
-        guests: [],
-        user_created: ['', Validators.required],
-        language: [ 'pt', Validators.required],
-        timezone: [ '-03:00', Validators.required]
-      });
-    }
+  
   
 
     addCompany(): void {
@@ -54,13 +69,12 @@ export class AddCompanyComponent {
         this.setUserCreated();
         this.setGuests();
         
-        this.service.addObject("companys/",this.company).subscribe(() => {
-          this.router.navigate(['companys/']);
+        this.service.addObject(this.path,this.company).subscribe(() => {
+          this.router.navigate([this.path]);
         });
       }else{
         console.log('Formulário inválido. Corrija os erros.');
       }
-
     }
 
     setGuests(){
@@ -74,7 +88,29 @@ export class AddCompanyComponent {
       let user_id = this.formCompany.get('user_created').value;
       this.company.user_created =  this.service.baseUrl+'users/'+user_id+'/'
     }
+
+    initUsers(){
+      this.service.getObjects('users/').subscribe(
+        data => {
+        this.users = data;
+      });
+    }
   
+  
+    
+    setUser(){
+      const url = this.company.user_created;
+  
+      // Use uma expressão regular para extrair a parte entre as duas últimas barras
+      const match = url.match(/\/([^\/]+)\/$/);
+  
+      // A parte desejada estará em match[1] se houver uma correspondência
+      const id_user = match ? match[1] : null;
+  
+      this.service.getObject("users/", id_user).subscribe((user)=>{
+        this.company.user_created = user;
+      });
+    }
 
   }
     

@@ -1,36 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atualizar Companhia</title>
-</head>
-<body>  
-  <div class="my-5">
-      <div class="mx-auto w-25 " style="max-width:100%;">
-        <h2 class="text-center mb-3">Atualizar Companhia</h2>
-        <form  (submit)="updateCompany()" >
-          <div class="row">
-            <div class="col-md-12 form-group mb-3">
-              <label for="name" class="form-label">Nome</label>
-              <input id="name" [(ngModel)]="company.name" type="text" name="name" class="form-control" required>
-            </div>
-          </div>
-                
-      
-      
-        <div class="row">
-          <div class="col-md-12 form-group">
-            <button class="btn btn-primary w-100" type="submit" value="Submit">Button</button>
-          </div>
-        </div>
-      
-      <div>
-      </div>
-    </form>
-  </div>
-</div>
+<app-content>
+    <h2 class="text-center mb-3">Atualizar Instituição</h2>
 
-</body>
-</html>
+    <form *ngIf="formCompany" [formGroup]="formCompany" (ngSubmit)="updateCompany()">          
+      
+      <div class="col-md-12 form-group mb-3">
+        <label for="name" class="form-label">Nome *</label>
+        <input id="name" formControlName="name" type="text" name="name" class="form-control" required>
+        <div class="div-erro" *ngIf="formCompany.controls['name'].touched && formCompany.controls['name'].hasError('required')">
+          Nome é obrigatório.
+        </div>  
+        <div class="div-erro" *ngIf="formCompany.get('name').hasError('maxlength')">
+          O Nome deve ter no máximo 255 caracteres.
+        </div> 
+      </div>
+
+      <div class="col-md-12 form-group mb-3">
+        <label for="timezone" class="form-label">Fuso Horário</label>
+        <select id="timezone" name="timezone" formControlName="timezone">
+          <option value="-03:00">GMT -3</option>
+          <option value="-04:00">GMT -4</option>
+          <option value="-05:00">GMT -5</option>
+        </select>
+      </div>
+      
+      <div class="col-md-12 form-group mb-3">
+        <label for="language" class="form-label">Linguagem</label>
+        <select id="language" name="language" formControlName="language">
+          <option value="pt">Português</option>
+          <option value="es">Espanhol</option>
+          <option value="en">Inglês</option>
+        </select>
+      </div>  
+
+      
+      <div class="col-md-12 form-group mb-4">
+        <label for="user_created" class="form-label">Usuário Criação *</label>
+        <select id="user_created" name="user_created" formControlName="user_created">
+            <option *ngFor="let user_created of users" [value]="user_created.id">{{ user_created.name}}</option>
+        </select>
+      </div>
+
+      <div class="col-md-12 form-group mb-4">
+        <label for="guests" class="form-label">Convidados *</label>
+        <select multiple="guests" name="guests" formControlName="guests">
+            <option *ngFor="let guest of users" [value]="guest.id">{{ guest.name}}</option>
+        </select>
+      </div>
+        
+      <div class="col-md-12 d-flex justify-content-center">
+        <input class="button col-md-4" type="submit" value="Salvar">
+        <button class="button primary col-md-4" routerLink="/companys">Cancelar</button>
+      </div>
+      
+  </form>
+</app-content>
